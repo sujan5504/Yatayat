@@ -1,0 +1,192 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Models\Gender;
+use App\Models\Employee;
+use App\Models\EmployeeType;
+use App\Base\BaseCrudController;
+use App\Http\Requests\EmployeeRequest;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+
+class EmployeeCrudController extends BaseCrudController
+{
+    public function setup()
+    {
+        CRUD::setModel(Employee::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/employee');
+        CRUD::setEntityNameStrings(trans('employee.title_text'), trans('employee.title_text'));
+    }
+
+    protected function setupListOperation()
+    {
+        $cols = [
+            $this->addRowNumber(),
+            [
+                'name' => 'name',
+                'label' => trans('employee.full_name'),
+                'type' => 'model_function',
+                'function_name' =>'full_name',
+            ],
+            [
+                'name'=>'employee_type_id',
+                'type'=>'select',
+                'label'=>trans('employee.employee_type'),
+                'entity'=>'employee_type',
+                'model'=>EmployeeType::class,
+                'attribute'=>'name',
+            ],
+            [
+                'name' => 'contact',
+                'type' => 'text',
+                'label' => trans('employee.contact'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name' => 'email',
+                'type' => 'text',
+                'label' => trans('employee.email'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
+                'name' => 'license_number',
+                'type' => 'text',
+                'label' => trans('employee.license_number'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+            ],
+            $this->addIsActiveColumn(),
+        ];
+        $this->crud->addColumns($cols);
+    }
+
+    protected function setupCreateOperation()
+    {
+        CRUD::setValidation(EmployeeRequest::class);
+
+        $arr = [
+            [
+                'name' => 'first_name',
+                'type' => 'text',
+                'label' => trans('employee.first_name'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name' => 'middle_name',
+                'type' => 'text',
+                'label' => trans('employee.middle_name'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name' => 'last_name',
+                'type' => 'text',
+                'label' => trans('employee.last_name'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name'=>'gender_id',
+                'type'=>'select2',
+                'label'=>trans('employee.gender'),
+                'entity'=>'gender',
+                'model'=>Gender::class,
+                'attribute'=>'name',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name'=>'employee_type_id',
+                'type'=>'select2',
+                'label'=>trans('employee.employee_type'),
+                'entity'=>'employee_type',
+                'model'=>EmployeeType::class,
+                'attribute'=>'name',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name' => 'contact',
+                'type' => 'text',
+                'label' => trans('employee.contact'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
+                'name' => 'email',
+                'type' => 'text',
+                'label' => trans('employee.email'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+            ],
+            [
+                'name' => 'emp_photo',
+                'type' => 'text',
+                'label' => trans('employee.emp_photo'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            $this->addIsActiveField(),
+            [
+                'name' => 'legend2',
+                'type' => 'custom_html',
+                'value' => '<legend class="bg-secondary">License Details:</legend>',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12 driver_license_info',
+                ],
+            ],
+            [
+                'name' => 'license_number',
+                'type' => 'text',
+                'label' => trans('employee.license_number'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+            ],
+            [
+                'name' => 'issued_date_bs',
+                'type' => 'text',
+                'label' => trans('employee.issued_date_bs'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+            ],
+            [
+                'name' => 'issued_date_ad',
+                'type' => 'date',
+                'label' => trans('employee.issued_date_ad'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+            ],
+            [
+                'name' => 'license_photo',
+                'type' => 'text',
+                'label' => trans('employee.license_photo'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+            ],
+        ];  
+        $this->crud->addFields($arr);
+    }
+
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation();
+    }
+}

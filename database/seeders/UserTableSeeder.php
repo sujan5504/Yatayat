@@ -20,8 +20,6 @@ class UserTableSeeder extends Seeder
             'name' => 'superadmin',
             'email' => 'super@yatayat.com',
             'password' => bcrypt('yatayat@1234'),
-            'created_at'=>Carbon::now()->toDateTimeString(),
-            'updated_at'=>Carbon::now()->toDateTimeString(),
         ]);
     }
 }

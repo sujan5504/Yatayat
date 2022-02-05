@@ -13,7 +13,7 @@ class GenderCrudController extends BaseCrudController
     {
         CRUD::setModel(Gender::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/gender');
-        CRUD::setEntityNameStrings(trans('common.title_text'), trans('common.title_text'));
+        CRUD::setEntityNameStrings(trans('gender.title_text'), trans('gender.title_text'));
     }
 
     protected function setupListOperation()
@@ -25,6 +25,7 @@ class GenderCrudController extends BaseCrudController
             $this->addIsActiveColumn(),
         ];
         $this->crud->addColumns($cols);
+        $this->crud->orderBy('id');
     }
 
     protected function setupCreateOperation()
