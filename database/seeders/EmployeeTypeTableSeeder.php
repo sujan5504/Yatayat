@@ -16,8 +16,8 @@ class EmployeeTypeTableSeeder extends Seeder
     public function run()
     {
         $employee_type = [
-            ['id' => 1,'name' => 'Driver'],
-            ['id' => 2,'name' => 'Conductor'],
+            ['id' => 1,'client_id' => 1,'name' => 'Driver'],
+            ['id' => 2,'client_id' => 1,'name' => 'Conductor'],
         ];
         EmployeeType::insert($employee_type);
     }

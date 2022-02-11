@@ -37,6 +37,47 @@ class BaseCrudController extends CrudController
             'label' => trans('common.code'),
         ];
     }
+    protected function addClientIdColumn(){
+        if(backpack_user()->hasRole('superadmin')){
+            return[
+                'label' => trans('common.client'),
+                'type' => 'select',
+                'name' => 'client_id',
+                'entity' => 'client',
+                'attribute' => 'name_lc',
+                // 'model' => AppClient::class,
+            ];
+        }
+    }
+
+    protected function addClientIdField(){
+        if(backpack_user()->hasRole('superadmin')){
+            return[
+                'label' => trans('common.client'),
+                'type' => 'select2',
+                'name' => 'client_id',
+                'entity' => 'client',
+                'attribute' => 'name_lc',
+                // 'model' => AppClient::class,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-4'
+                ],
+                'options'   => (function ($query) {
+                    return $query->selectRaw("code|| ' - ' || name, id")
+                            ->get();
+                        }),
+                'attributes'=>[
+                    'required' => 'Required',
+                ],
+            ];
+        }else{
+            return[
+                'name' => 'client_id',
+                'type' => 'hidden',
+                'value' => backpack_user()->client_id,
+            ];
+        }
+    }
 
     protected function addCodeField(){
         return[

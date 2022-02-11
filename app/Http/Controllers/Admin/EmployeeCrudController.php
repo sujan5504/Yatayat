@@ -133,12 +133,16 @@ class EmployeeCrudController extends BaseCrudController
                 ],
             ],
             [
-                'name' => 'emp_photo',
-                'type' => 'text',
-                'label' => trans('employee.emp_photo'),
+                'name' => 'employee_photo',
+                'type' => 'image',
+                'label' => trans('employee.employee_photo'),
+                'disk' => 'uploads',
+                'upload' => true,
+                'crop' => true,
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],
+
             ],
             $this->addIsActiveField(),
             [
@@ -175,11 +179,15 @@ class EmployeeCrudController extends BaseCrudController
             ],
             [
                 'name' => 'license_photo',
-                'type' => 'text',
+                'type' => 'image',
                 'label' => trans('employee.license_photo'),
+                'disk' => 'uploads',
+                'upload' => true,
+                'crop' => true,
                 'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3 driver_license_info',
+                    'class' => 'form-group col-md-6',
                 ],
+
             ],
         ];  
         $this->crud->addFields($arr);

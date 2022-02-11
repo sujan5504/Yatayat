@@ -5,4 +5,6 @@ return[
     'name' => 'Name',
     'is_active' => 'Is Active?',
     'remarks' => 'Remarks',
+    'client' => 'Client',
+    'email' => 'Email',
 ];

@@ -8,7 +8,7 @@ return[
     'gender' => 'Gender',
     'employee_type' => 'Employee Type',
     'contact' => 'Contact',
-    'emp_photo' => 'Photo',
+    'employee_photo' => 'Photo',
     'email' => 'Email',
     'license_number' => 'License Number',
     'issued_date_ad' => 'Issue Date(A.D)',

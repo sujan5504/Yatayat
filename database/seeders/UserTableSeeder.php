@@ -16,8 +16,16 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('clients')->insert([
+            'id' => '1',
+            'name' => 'superadmin',
+            'email' => 'super@yatayat.com',
+            'is_active' => true,
+        ]);
+        
         DB::table('users')->insert([
             'id' => '1',
+            'client_id' => '1',
             'name' => 'superadmin',
             'email' => 'super@yatayat.com',
             'password' => bcrypt('yatayat@1234'),

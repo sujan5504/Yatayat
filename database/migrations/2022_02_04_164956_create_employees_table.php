@@ -24,8 +24,8 @@ class CreateEmployeesTable extends Migration
             $table->string('license_number',100)->nullable(); 
             $table->text('issued_date_bs')->nullable(); 
             $table->text('issued_date_ad')->nullable(); 
+            $table->string('employee_photo',250)->nullable(); 
             $table->string('license_photo',250)->nullable(); 
-            $table->string('emp_photo',250)->nullable(); 
             $table->string('contact',20); 
             $table->unsignedBigInteger('gender_id');
             $table->string('email')->nullable();
