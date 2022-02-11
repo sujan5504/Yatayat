@@ -15,6 +15,7 @@ class CreateGendersTable extends Migration
     {
         Schema::create('genders', function (Blueprint $table) {
             $table->id();
+            
             $table->string('code',10);
             $table->string('name',250);
             $table->boolean('is_active')->default(1);
@@ -25,9 +26,6 @@ class CreateGendersTable extends Migration
             $table->unique('code','uq_genders_code');
             $table->unique('name','uq_genders_name');
         });
-        
-        $seeder = new Database\Seeders\GenderTableSeeder();
-        $seeder->run();
     }
 
     /**

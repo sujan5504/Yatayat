@@ -15,6 +15,8 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->string('first_name',250);
             $table->string('middle_name',250)->nullable();
             $table->string('last_name',250);
@@ -31,6 +33,7 @@ class CreateEmployeesTable extends Migration
 
             $table->timestamps();
             
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('employee_type_id')->references('id')->on('employee_types');
             $table->foreign('gender_id')->references('id')->on('genders');
             $table->unique('license_number','uq_employees_license_number');

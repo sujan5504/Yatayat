@@ -15,17 +15,17 @@ class CreateEmployeeTypesTable extends Migration
     {
         Schema::create('employee_types', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->string('name',250);
             $table->boolean('is_active')->default(1);
             $table->string('remarks',500)->nullable();
 
             $table->timestamps();
         
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->unique('name','uq_employee_types_name');
         });
-
-        $seeder = new Database\Seeders\EmployeeTypeTableSeeder();
-        $seeder->run();
     }
 
     /**

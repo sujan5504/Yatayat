@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,5 +22,9 @@ class UserTableSeeder extends Seeder
             'email' => 'super@yatayat.com',
             'password' => bcrypt('yatayat@1234'),
         ]);
+
+        $user = new User();
+        $superadmin =  DB::table('users')->where('name', 'superadmin')->pluck('id')->first();
+        $user->assignRoleCustom("superadmin", $superadmin);
     }
 }
