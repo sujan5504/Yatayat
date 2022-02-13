@@ -149,7 +149,7 @@ class EmployeeCrudController extends BaseCrudController
             ],
             $this->addIsActiveField(),
             [
-                'name' => 'legend2',
+                'name' => 'legend',
                 'type' => 'custom_html',
                 'value' => '<legend class="bg-secondary">License Details:</legend>',
                 'wrapperAttributes' => [

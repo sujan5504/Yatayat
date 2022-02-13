@@ -40,16 +40,14 @@ class BaseCrudController extends CrudController
     }
 
     protected function addClientIdColumn(){
-        // if(backpack_user()->hasRole('superadmin')){
-            return[
-                'name' => 'client_id',
-                'type' => 'select',
-                'label' => trans('common.client'),
-                'entity' => 'client',
-                'attribute' => 'name',
-                'model' => Client::class,
-            ];
-        // }
+        return[
+            'name' => 'client_id',
+            'type' => 'select',
+            'label' => trans('common.client'),
+            'entity' => 'client',
+            'attribute' => 'name',
+            'model' => Client::class,
+        ];
     }
 
     protected function addClientIdField(){
@@ -64,7 +62,6 @@ class BaseCrudController extends CrudController
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3'
                 ],
-                
                 'attributes'=>[
                     'required' => 'Required',
                 ],

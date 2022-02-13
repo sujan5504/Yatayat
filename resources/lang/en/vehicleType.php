@@ -1,0 +1,11 @@
+<?php
+return [
+    'title_text' => 'Vehicle Type',
+    'vehicle' => 'Vehicle',
+    'last_row' => 'Last Row',
+    'right_row' => 'Right Row',
+    'right_column' => 'Right Column',
+    'left_row' => 'Left Row',
+    'left_column' => 'Left Column',
+    'driver_side' => 'Driver Side',
+];

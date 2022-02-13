@@ -17,19 +17,21 @@ class CreateVehicleTypesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('client_id')->nullable();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->text('name')->nullable();
-            $table->integer('back_row');
-            $table->integer('right_row');
-            $table->integer('back_column');
-            $table->integer('left_row');
-            $table->integer('left_column');
-            $table->integer('driver_side');
+            $table->integer('last_row')->nullable();
+            $table->integer('right_row')->nullable();
+            $table->integer('right_column')->nullable();
+            $table->integer('left_row')->nullable();
+            $table->integer('left_column')->nullable();
+            $table->integer('driver_side')->nullable();
             $table->boolean('is_active')->default(1);
             $table->text('remarks',500)->nullable();
 
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });
     }
 

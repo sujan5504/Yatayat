@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\VehicleType;
+use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
 
-class VehicleTypeSeeder extends Seeder
+class VehicleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +14,11 @@ class VehicleTypeSeeder extends Seeder
      */
     public function run()
     {
-        $vehicle_type = [
+        $vehicle = [
             ['id' => 1,'client_id' => 1, 'name' => 'Car', 'is_active' => true],
             ['id' => 2,'client_id' => 1, 'name' => 'Bus', 'is_active' => true],
             ['id' => 3,'client_id' => 1, 'name' => 'Jeep', 'is_active' => true],
         ];
-        VehicleType::insert($vehicle_type);
+        Vehicle::insert($vehicle);
     }
 }
