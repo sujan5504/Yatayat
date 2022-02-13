@@ -34,6 +34,9 @@ class EmployeeType extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id','id');
+    }
 
     /*
     |--------------------------------------------------------------------------

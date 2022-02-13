@@ -12,7 +12,7 @@ class EmployeeTypeCrudController extends BaseCrudController
     public function setup()
     {
         CRUD::setModel(EmployeeType::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/employee-type');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/employeetype');
         CRUD::setEntityNameStrings(trans('employeeType.title_text'), trans('employeeType.title_text'));
     }
 
@@ -20,11 +20,12 @@ class EmployeeTypeCrudController extends BaseCrudController
     {
         $cols = [
             $this->addRowNumber(),
+            $this->addClientIdColumn(),
             $this->addNameColumn(),
             $this->addIsActiveColumn(),
         ];
         $this->crud->addColumns($cols);
-        $this->crud->orderBy('id');
+        $this->hideClientIdColumn();
     }
 
     protected function setupCreateOperation()
@@ -32,6 +33,7 @@ class EmployeeTypeCrudController extends BaseCrudController
         CRUD::setValidation(EmployeeTypeRequest::class);
 
         $arr = [
+            $this->addClientIdField(),
             $this->addNameField(),
             $this->addIsActiveField(),
             $this->addRemarksField(),

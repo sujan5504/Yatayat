@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 class VehicleType extends Model
 {
@@ -19,7 +20,7 @@ class VehicleType extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = ['client_id','name','is_active','remarks'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,7 +35,9 @@ class VehicleType extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id','id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

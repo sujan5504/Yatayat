@@ -113,6 +113,10 @@ class Employee extends Model
         return $this->belongsTo(Gender::class,'gender_id','id');
     }
 
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id','id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

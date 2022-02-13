@@ -2,6 +2,7 @@
 
 namespace App\Base;
 
+use App\Models\Client;
 use App\Base\Operations\ListOperation;
 use App\Base\Operations\ShowOperation;
 use App\Base\Operations\CreateOperation;
@@ -37,35 +38,33 @@ class BaseCrudController extends CrudController
             'label' => trans('common.code'),
         ];
     }
+
     protected function addClientIdColumn(){
-        if(backpack_user()->hasRole('superadmin')){
+        // if(backpack_user()->hasRole('superadmin')){
             return[
-                'label' => trans('common.client'),
-                'type' => 'select',
                 'name' => 'client_id',
+                'type' => 'select',
+                'label' => trans('common.client'),
                 'entity' => 'client',
-                'attribute' => 'name_lc',
-                // 'model' => AppClient::class,
+                'attribute' => 'name',
+                'model' => Client::class,
             ];
-        }
+        // }
     }
 
     protected function addClientIdField(){
         if(backpack_user()->hasRole('superadmin')){
             return[
-                'label' => trans('common.client'),
-                'type' => 'select2',
                 'name' => 'client_id',
+                'type' => 'select2',
+                'label' => trans('common.client'),
                 'entity' => 'client',
-                'attribute' => 'name_lc',
-                // 'model' => AppClient::class,
+                'attribute' => 'name',
+                'model' => Client::class,
                 'wrapperAttributes' => [
-                    'class' => 'form-group col-md-4'
+                    'class' => 'form-group col-md-3'
                 ],
-                'options'   => (function ($query) {
-                    return $query->selectRaw("code|| ' - ' || name, id")
-                            ->get();
-                        }),
+                
                 'attributes'=>[
                     'required' => 'Required',
                 ],
@@ -146,5 +145,11 @@ class BaseCrudController extends CrudController
                 'class' => 'form-group col-md-12',
             ],  
         ];
+    }
+
+    protected function hideClientIdColumn(){
+        if(backpack_user()->hasRole('clientadmin') || backpack_user()->hasRole('operator') || backpack_user()->hasRole('user')){
+            $this->crud->removeColumn('client_id');
+        }
     }
 }

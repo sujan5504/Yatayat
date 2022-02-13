@@ -22,6 +22,7 @@ class EmployeeCrudController extends BaseCrudController
     {
         $cols = [
             $this->addRowNumber(),
+            $this->addClientIdColumn(),
             [
                 'name' => 'name',
                 'label' => trans('employee.full_name'),
@@ -63,6 +64,7 @@ class EmployeeCrudController extends BaseCrudController
             $this->addIsActiveColumn(),
         ];
         $this->crud->addColumns($cols);
+        $this->hideClientIdColumn();
     }
 
     protected function setupCreateOperation()
@@ -70,6 +72,7 @@ class EmployeeCrudController extends BaseCrudController
         CRUD::setValidation(EmployeeRequest::class);
 
         $arr = [
+            $this->addClientIdField(),
             [
                 'name' => 'first_name',
                 'type' => 'text',
@@ -161,14 +164,14 @@ class EmployeeCrudController extends BaseCrudController
                     'class' => 'form-group col-md-3 driver_license_info',
                 ],
             ],
-            [
-                'name' => 'issued_date_bs',
-                'type' => 'text',
-                'label' => trans('employee.issued_date_bs'),
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3 driver_license_info',
-                ],
-            ],
+            // [
+            //     'name' => 'issued_date_bs',
+            //     'type' => 'text',
+            //     'label' => trans('employee.issued_date_bs'),
+            //     'wrapperAttributes' => [
+            //         'class' => 'form-group col-md-3 driver_license_info',
+            //     ],
+            // ],
             [
                 'name' => 'issued_date_ad',
                 'type' => 'date',
@@ -185,7 +188,7 @@ class EmployeeCrudController extends BaseCrudController
                 'upload' => true,
                 'crop' => true,
                 'wrapperAttributes' => [
-                    'class' => 'form-group col-md-6',
+                    'class' => 'form-group col-md-6 driver_license_info',
                 ],
 
             ],
