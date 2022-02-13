@@ -15,16 +15,21 @@ class CreateVehicleTypesTable extends Migration
     {
         Schema::create('vehicle_types', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('client_id')->nullable();
-            $table->string('name',250);
+            $table->text('name')->nullable();
+            $table->integer('back_row');
+            $table->integer('right_row');
+            $table->integer('back_column');
+            $table->integer('left_row');
+            $table->integer('left_column');
+            $table->integer('driver_side');
             $table->boolean('is_active')->default(1);
-            $table->string('remarks',500)->nullable();
+            $table->text('remarks',500)->nullable();
 
             $table->timestamps();
-        
+
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->unique('name','uq_vehicle_types_name');
         });
     }
 
@@ -35,6 +40,6 @@ class CreateVehicleTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle_type');
+        Schema::dropIfExists('bus_type');
     }
 }
