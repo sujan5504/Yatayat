@@ -59,15 +59,26 @@ class VehicleTypeCrudController extends BaseCrudController
                 ]
             ],
             $this->addNameField(),
+            [
+                'name' => 'is_seat_details_required',
+                'type' => 'checkbox',
+                'label' => trans('vehicleType.is_seat_details_required'),
+                'default' => 'checked',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+                'attributes' => [
+                    'id' => 'is_seat_details_required',
+                ],
+            ],
             $this->addIsActiveField(),
-            $this->addRemarksField(),
             [
                 'name' => 'bus_seat_details',
                 'type' => 'vehicle_type',
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-12'
                 ],
-            ]
+            ],
         ];
         $this->crud->addFields($arr);
     }

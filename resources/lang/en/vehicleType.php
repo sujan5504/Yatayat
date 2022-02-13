@@ -8,4 +8,5 @@ return [
     'left_row' => 'Left Row',
     'left_column' => 'Left Column',
     'driver_side' => 'Driver Side',
+    'is_seat_details_required' => 'Is Seat Details Required?',
 ];

@@ -26,7 +26,6 @@ class CreateVehicleTypesTable extends Migration
             $table->integer('left_column')->nullable();
             $table->integer('driver_side')->nullable();
             $table->boolean('is_active')->default(1);
-            $table->text('remarks',500)->nullable();
 
             $table->timestamps();
 

@@ -14,10 +14,12 @@ $(document).ready(function () {
         }
     });
 
-    // $('.if_bus').hide();
-    $('#vehicle_type_change').change(function (e){
-        vehicle = $(this).val();
-        if(vehicle != 2){
+    // var active = $('#is_seat_details_required').prop("checked");
+    // console.log(active);
+    $('#is_seat_details_required').click(function(){
+        value = $('#is_seat_details_required').prop("checked");
+
+        if(true){
             $('.if_bus').hide();
         }else{
             $('.if_bus').show();
