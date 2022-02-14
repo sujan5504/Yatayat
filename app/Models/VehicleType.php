@@ -19,7 +19,7 @@ class VehicleType extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['client_id','vehicle_id','name','last_row','right_row','right_column','left_row','left_column','driver_side','is_active','remarks'];
+    protected $fillable = ['client_id','vehicle_id','name','last_row','right_row','right_column','left_row','left_column','driver_side','is_active','total_no_of_seat'];
     // protected $hidden = [];
     // protected $dates = [];
 

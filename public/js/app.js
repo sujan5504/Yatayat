@@ -14,15 +14,15 @@ $(document).ready(function () {
         }
     });
 
-    // var active = $('#is_seat_details_required').prop("checked");
-    // console.log(active);
-    $('#is_seat_details_required').click(function(){
-        value = $('#is_seat_details_required').prop("checked");
-
-        if(true){
-            $('.if_bus').hide();
-        }else{
+    $('.if_bus').hide()
+    $('#vehicle_type_change').change(function(){
+        vehicle_value = $(this).val();
+        if(vehicle_value == 2){
             $('.if_bus').show();
+            $("#total_no_of_seat").attr('disabled', true);
+        }else{
+            $('.if_bus').hide();
+            $("#total_no_of_seat").attr('disabled', false);
         }
     });
 });

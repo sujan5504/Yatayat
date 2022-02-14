@@ -25,6 +25,7 @@ class CreateVehicleTypesTable extends Migration
             $table->integer('left_row')->nullable();
             $table->integer('left_column')->nullable();
             $table->integer('driver_side')->nullable();
+            $table->integer('total_no_of_seat');
             $table->boolean('is_active')->default(1);
 
             $table->timestamps();

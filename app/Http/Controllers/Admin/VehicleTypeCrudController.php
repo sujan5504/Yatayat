@@ -32,6 +32,16 @@ class VehicleTypeCrudController extends BaseCrudController
                 'attribute' => 'name',
                 'model' => Vehicle::class,
             ],
+            [
+                'name' => 'vehicle_no',
+                'type' => 'number',
+                'label' => tans('vehicleType.vehicle_no'),
+            ],
+            [
+                'name' => 'total_no_of_seat',
+                'type' => 'number',
+                'label' => tans('vehicleType.total_no_of_seat'),
+            ],
             $this->addIsActiveColumn(),
         ];
         $this->crud->addColumns($cols);
@@ -60,16 +70,15 @@ class VehicleTypeCrudController extends BaseCrudController
             ],
             $this->addNameField(),
             [
-                'name' => 'is_seat_details_required',
-                'type' => 'checkbox',
-                'label' => trans('vehicleType.is_seat_details_required'),
-                'default' => 'checked',
+                'name' => 'total_no_of_seat',
+                'type' => 'number',
+                'label' => trans('vehicleType.total_no_of_seat'),
                 'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
+                    'class' => 'form-group col-md-2',
                 ],
                 'attributes' => [
-                    'id' => 'is_seat_details_required',
-                ],
+                    'id' => 'total_no_of_seat',
+                ]
             ],
             $this->addIsActiveField(),
             [

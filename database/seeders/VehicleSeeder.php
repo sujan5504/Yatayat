@@ -18,6 +18,7 @@ class VehicleSeeder extends Seeder
             ['id' => 1,'client_id' => 1, 'name' => 'Car', 'is_active' => true],
             ['id' => 2,'client_id' => 1, 'name' => 'Bus', 'is_active' => true],
             ['id' => 3,'client_id' => 1, 'name' => 'Jeep', 'is_active' => true],
+            ['id' => 4,'client_id' => 1, 'name' => 'Hiace', 'is_active' => true],
         ];
         Vehicle::insert($vehicle);
     }
