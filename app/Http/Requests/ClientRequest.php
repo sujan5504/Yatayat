@@ -29,6 +29,7 @@ class ClientRequest extends FormRequest
         return [
             'name' => 'required|max:250',
             'email' => 'required|max:250|unique:clients,name'.$id_check,
+            'contact' => 'required|max:14',
             'is_active' => 'required',
         ];
     }
@@ -44,6 +45,7 @@ class ClientRequest extends FormRequest
             'name' => trans('client.name'),
             'is_active' => trans('client.is_active'),
             'email' => trans('client.email'),
+            'contact' => trans('client.contact'),
         ];
     }
 

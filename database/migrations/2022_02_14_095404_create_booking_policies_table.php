@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateBookingPoliciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('booking_policies', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name',250);
-            $table->string('email',250)->nullable();
-            $table->string('contact')->nullable();
-            $table->boolean('is_active')->default(true);
-
+            $table->jsonb('booking_policy');
+            $table->string('policy')->nullable();
+            $table->string('deduction')->nullable();
             $table->timestamps();
-
-            $table->unique('email','uq_clients_email');
         });
     }
 
@@ -34,6 +29,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('booking_policies');
     }
 }
