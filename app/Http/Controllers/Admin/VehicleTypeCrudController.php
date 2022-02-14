@@ -33,14 +33,9 @@ class VehicleTypeCrudController extends BaseCrudController
                 'model' => Vehicle::class,
             ],
             [
-                'name' => 'vehicle_no',
-                'type' => 'number',
-                'label' => tans('vehicleType.vehicle_no'),
-            ],
-            [
                 'name' => 'total_no_of_seat',
                 'type' => 'number',
-                'label' => tans('vehicleType.total_no_of_seat'),
+                'label' => trans('vehicleType.total_no_of_seat'),
             ],
             $this->addIsActiveColumn(),
         ];
