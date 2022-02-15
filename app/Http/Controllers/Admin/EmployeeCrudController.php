@@ -164,20 +164,27 @@ class EmployeeCrudController extends BaseCrudController
                     'class' => 'form-group col-md-3 driver_license_info',
                 ],
             ],
-            // [
-            //     'name' => 'issued_date_bs',
-            //     'type' => 'text',
-            //     'label' => trans('employee.issued_date_bs'),
-            //     'wrapperAttributes' => [
-            //         'class' => 'form-group col-md-3 driver_license_info',
-            //     ],
-            // ],
+            [
+                'name' => 'issued_date_bs',
+                'type' => 'nepali_date',
+                'label' => trans('employee.issued_date_bs'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3 driver_license_info',
+                ],
+                'attributes' => [
+                    'id' => 'issued_date_bs',
+                    'related_id' => 'issued_date_ad',
+                ]
+            ],
             [
                 'name' => 'issued_date_ad',
                 'type' => 'date',
                 'label' => trans('employee.issued_date_ad'),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3 driver_license_info',
+                ],
+                'attributes' => [
+                    'id' => 'issued_date_ad',
                 ],
             ],
             [
