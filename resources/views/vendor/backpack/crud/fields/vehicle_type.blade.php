@@ -5,28 +5,28 @@
     <div class="col-md-6 row bold-labels">
         <div class="form-group col-md-8">
             <label for="driver_side">Driver Side</label><small>(MAX value is 2)</small>
-            <input type="text" name="driver_side" class="form-control" id="driver_side" onkeyup="loadSeat(this, 2)">
+            <input type="text" name="driver_side" class="form-control" value="{{ old('driver_side') }}" id="driver_side" onkeyup="loadSeat(this, 2)">
         </div>
         <div class="form-group col-md-8">
             <label for="last_row">Last Row</label><small>(MAX value is 5)</small>
-            <input type="text" name="last_row" class="form-control" id="last_row" onkeyup="loadSeat(this,5)">
+            <input type="text" name="last_row" class="form-control" value="{{ old('last_row') }}" id="last_row" onkeyup="loadSeat(this,5)">
         </div>
         <div class="form-group col-md-8">
             <label for="right_row">Right Row</label><small>(MAX value is 2)</small>
-            <input type="text" name="right_row" class="form-control" id="right_row">
+            <input type="text" name="right_row" class="form-control" value="{{ old('right_row') }}" id="right_row">
         </div>
         <div class="form-group col-md-8">
             <label for="right_column">Right Column</label><small>(MAX value is 10)</small>
-            <input type="text" name="right_column" class="form-control" id="right_column" 
+            <input type="text" name="right_column" class="form-control" value="{{ old('right_column') }}" id="right_column" 
                 placeholder="Fill value in Right Row first.">
         </div>
         <div class="form-group col-md-8">
             <label for="left_row">Left Row</label><small>(MAX value is 2)</small>
-            <input type="text" name="left_row" class="form-control" id="left_row">
+            <input type="text" name="left_row" class="form-control" value="{{ old('left_row') }}" id="left_row">
         </div>
         <div class="form-group col-md-8">
             <label for="left_column">Left Column</label><small>(MAX value is 10)</small>
-            <input type="text" name="left_column" class="form-control" id="left_column" 
+            <input type="text" name="left_column" class="form-control" value="{{ old('left_column') }}" id="left_column" 
                 placeholder="Fill value in Left Row first.">
         </div>
     </div>
@@ -46,12 +46,12 @@
                 <div class="col-md-12 m-2"></div>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-5" style="align-self: end;">
                             <div class="row left"></div>
                         </div>
                         <div class="col-md-2"></div>
-                        <div class="col-md-5">
-                            <div class="row right" style="justify-content:right"></div>
+                        <div class="col-md-5" style="align-self: end;">
+                            <div class="row right"></div>
                         </div>
                     </div>
                     <div class="row last_row justify-content-between"></div>
@@ -70,16 +70,16 @@
         let left_column;
         
         // for right side seats
-        $("#right_column").attr('disabled', true);
+        $("#right_column").attr('readonly', true);
         $('#right_row').on('keyup paste change', function (e) { 
             e.preventDefault();
             right_row = $(this).val();
             isANumber(2, right_row, '#right_row');
             
             if(right_row && right_row > 0){
-                $("#right_column").attr('disabled', false);
+                $("#right_column").attr('readonly', false);
             }else{
-                $("#right_column").attr('disabled', true);
+                $("#right_column").attr('readonly', true);
             }
         });
 
@@ -94,16 +94,16 @@
         });
 
         // for left side seats
-        $("#left_column").attr('disabled', true);
+        $("#left_column").attr('readonly', true);
         $("#left_row").on('keyup paste change', function (e){
             e.preventDefault();
             left_row = $(this).val();
             isANumber(2, left_row, '#left_row');
             
             if(left_row && left_row > 0){
-                $("#left_column").attr('disabled', false);
+                $("#left_column").attr('readonly', false);
             }else{
-                $("#left_column").attr('disabled', true);
+                $("#left_column").attr('readonly', true);
             }
         });
 

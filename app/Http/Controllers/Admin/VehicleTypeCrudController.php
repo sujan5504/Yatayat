@@ -113,6 +113,7 @@ class VehicleTypeCrudController extends BaseCrudController
                 'right_column' => $request->right_column,
                 'left_row' => $request->left_row,
                 'left_column' => $request->left_column,
+                'total_no_of_seat' => $request->total_no_of_seat,
             ];
             $item = VehicleType::create($data);
             DB::commit();

@@ -14,15 +14,15 @@ $(document).ready(function () {
         }
     });
 
-    $('.if_bus').hide()
+    $('.if_bus').hide();
     $('#vehicle_type_change').change(function(){
         vehicle_value = $(this).val();
         if(vehicle_value == 2){
             $('.if_bus').show();
-            $("#total_no_of_seat").attr('disabled', true);
+            $("#total_no_of_seat").attr('readonly', true);
         }else{
             $('.if_bus').hide();
-            $("#total_no_of_seat").attr('disabled', false);
+            $("#total_no_of_seat").attr('readonly', false);
         }
     });
 });
