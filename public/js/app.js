@@ -30,6 +30,9 @@ $(document).ready(function () {
         }else{
             $('.if_bus').hide();
             $("#total_no_of_seat").attr('readonly', false);
+
+            // clear value if bus not selected
+            $('#driver_side, #last_row, #right_row, #right_column, #left_row, #left_column, #total_no_of_seat').val('');
         }
     });
 });

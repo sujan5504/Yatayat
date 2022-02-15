@@ -10,4 +10,5 @@ return [
     'driver_side' => 'Driver Side',
     'is_seat_details_required' => 'Is Seat Details Required?',
     'total_no_of_seat' => 'Total No. of Seat',
+    'name' => 'Name',
 ];

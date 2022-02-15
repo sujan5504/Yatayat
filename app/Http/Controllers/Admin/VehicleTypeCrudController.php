@@ -89,7 +89,46 @@ class VehicleTypeCrudController extends BaseCrudController
 
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(VehicleTypeRequest::class);
+
+        $arr = [
+            $this->addClientIdField(),
+            [
+                'name' => 'vehicle_id',
+                'type' => 'select2',
+                'label' => trans('vehicleType.vehicle'),
+                'entity' => 'vehicle',
+                'attribute' => 'name',
+                'model' => Vehicle::class,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3'
+                ],
+                'attributes' => [
+                    'id' => 'vehicle_type_change',
+                ]
+            ],
+            $this->addNameField(),
+            [
+                'name' => 'total_no_of_seat',
+                'type' => 'number',
+                'label' => trans('vehicleType.total_no_of_seat'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-2',
+                ],
+                'attributes' => [
+                    'id' => 'total_no_of_seat',
+                ]
+            ],
+            $this->addIsActiveField(),
+            [
+                'name' => 'bus_seat_details',
+                'type' => 'vehicle_type_edit',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12'
+                ],
+            ],
+        ];
+        $this->crud->addFields($arr);
     }
 
     public function store()

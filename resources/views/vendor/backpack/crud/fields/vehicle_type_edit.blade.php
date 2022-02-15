@@ -5,28 +5,28 @@
     <div class="col-md-6 row bold-labels">
         <div class="form-group col-md-8">
             <label for="driver_side">Driver Side</label><small>(MAX value is 2)</small>
-            <input type="number" name="driver_side" class="form-control" value="{{ old('driver_side') }}" id="driver_side" onkeyup="loadSeat(this, 2)">
+            <input type="text" name="driver_side" class="form-control" value="{{ $entry->driver_side }}" id="driver_side" onkeyup="loadSeat(this, 2)">
         </div>
         <div class="form-group col-md-8">
             <label for="last_row">Last Row</label><small>(MAX value is 5)</small>
-            <input type="number" name="last_row" class="form-control" value="{{ old('last_row') }}" id="last_row" onkeyup="loadSeat(this,5)">
+            <input type="text" name="last_row" class="form-control" value="{{ $entry->last_row }}" id="last_row" onkeyup="loadSeat(this,5)">
         </div>
         <div class="form-group col-md-8">
             <label for="right_row">Right Row</label><small>(MAX value is 2)</small>
-            <input type="number" name="right_row" class="form-control" value="{{ old('right_row') }}" id="right_row">
+            <input type="text" name="right_row" class="form-control" value="{{ $entry->right_row }}" id="right_row">
         </div>
         <div class="form-group col-md-8">
             <label for="right_column">Right Column</label><small>(MAX value is 10)</small>
-            <input type="number" name="right_column" class="form-control" value="{{ old('right_column') }}" id="right_column" 
+            <input type="text" name="right_column" class="form-control" value="{{ $entry->right_column }}" id="right_column" 
                 placeholder="Fill value in Right Row first.">
         </div>
         <div class="form-group col-md-8">
             <label for="left_row">Left Row</label><small>(MAX value is 2)</small>
-            <input type="number" name="left_row" class="form-control" value="{{ old('left_row') }}" id="left_row">
+            <input type="text" name="left_row" class="form-control" value="{{ $entry->left_row }}" id="left_row">
         </div>
         <div class="form-group col-md-8">
             <label for="left_column">Left Column</label><small>(MAX value is 10)</small>
-            <input type="number" name="left_column" class="form-control" value="{{ old('left_column') }}" id="left_column" 
+            <input type="text" name="left_column" class="form-control" value="{{ $entry->left_column }}" id="left_column" 
                 placeholder="Fill value in Left Row first.">
         </div>
     </div>
@@ -160,7 +160,6 @@
 
     function loadMiddleSeat(row, column, class_name)
     {
-        $('.'+class_name).empty();
         total_seat = row * column;
         if(total_seat  == 0){
             $('.'+class_name).empty();
