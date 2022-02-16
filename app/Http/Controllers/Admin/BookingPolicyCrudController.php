@@ -20,6 +20,7 @@ class BookingPolicyCrudController extends BaseCrudController
     {
         $cols = [
             $this->addRowNumber(),
+            $this->addClientIdColumn(),
             [
                 'name'  => 'booking_policy',
                 'label' => trans('bookingPolicy.booking_policy'),
@@ -31,6 +32,7 @@ class BookingPolicyCrudController extends BaseCrudController
             ],
         ];
         $this->crud->addColumns($cols);
+        $this->hideClientIdColumn();
     }
 
     protected function setupCreateOperation()
@@ -38,6 +40,7 @@ class BookingPolicyCrudController extends BaseCrudController
         CRUD::setValidation(BookingPolicyRequest::class);
 
         $arr = [
+            $this->addClientIdField(),
             [
                 'name'            => 'booking_policy',
                 'label'           => trans('bookingPolicy.booking_policy'),
