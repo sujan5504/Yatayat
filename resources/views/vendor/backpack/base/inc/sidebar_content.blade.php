@@ -12,6 +12,7 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('gender') }}'><i class='nav-icon la la-intersex '></i> {{ trans('gender.title_text') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('employeetype') }}'><i class='nav-icon la la-user'></i> {{ trans('employeeType.title_text') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('vehicle') }}'><i class='nav-icon la la-car'></i> {{ trans('vehicle.title_text') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('bookingpolicy') }}'><i class='nav-icon la la-list-alt'></i> {{ trans('bookingPolicy.title_text') }} </a></li>
     </ul>
 </li>
 

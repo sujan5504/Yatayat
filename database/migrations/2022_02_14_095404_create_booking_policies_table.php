@@ -15,9 +15,9 @@ class CreateBookingPoliciesTable extends Migration
     {
         Schema::create('booking_policies', function (Blueprint $table) {
             $table->id();
+            
             $table->jsonb('booking_policy');
-            $table->string('policy')->nullable();
-            $table->string('deduction')->nullable();
+        
             $table->timestamps();
         });
     }
