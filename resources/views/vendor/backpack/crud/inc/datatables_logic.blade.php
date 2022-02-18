@@ -12,6 +12,7 @@
   <script type="text/javascript" src="{{ asset('packages/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('packages/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('packages/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js') }}"></script>
+  <script type="text/javascript" src="{{asset('js/fixedColumns.min.js')}}"></script>  
 
   <script>
     // here we will check if the cached dataTables paginator length is conformable with current paginator settings.
@@ -164,6 +165,8 @@
         @else
         responsive: false,
         scrollX: true,
+        scrollCollapse: true,
+        paging:true,
         @endif
 
         @if ($crud->getPersistentTable())
@@ -204,6 +207,10 @@
         },
         @endif
         @endif
+        fixedColumns:   {
+            leftColumns: 0,
+            rightColumns: 1,
+        },
         autoWidth: false,
         pageLength: $dtDefaultPageLength,
         lengthMenu: @json($crud->getPageLengthMenu()),
@@ -371,5 +378,11 @@
 
     });
   </script>
+
+<style>
+    .right-fixed-bg{
+        background-color: white !important;
+    }
+</style>
 
   @include('crud::inc.details_row_logic')

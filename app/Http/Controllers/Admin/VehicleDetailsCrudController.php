@@ -67,7 +67,7 @@ class VehicleDetailsCrudController extends BaseCrudController
                 'label' => trans('vehicleDetail.amenities'),
                 'type'  => 'table',
                 'columns' => [
-                    'amenities' => trans('vehicleDetail.amenities'),
+                    'name' => trans('vehicleDetail.amenities'),
                 ]
             ],
         ];
