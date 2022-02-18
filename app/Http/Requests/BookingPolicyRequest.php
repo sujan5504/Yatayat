@@ -57,7 +57,7 @@ class BookingPolicyRequest extends FormRequest
                             // dd($fieldGroupValidator->errors());
                     }
                 }
-             }
+            }
         ];
     }
 

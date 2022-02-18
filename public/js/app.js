@@ -35,4 +35,8 @@ $(document).ready(function () {
             $('#driver_side, #last_row, #right_row, #right_column, #left_row, #left_column, #total_no_of_seat').val('');
         }
     });
+
+    $('#vehicle_number').on('keyup paste', function (e) { 
+        $(this).val($(this).val().toUpperCase());
+    });
 });

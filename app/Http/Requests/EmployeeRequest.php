@@ -26,15 +26,20 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         $id_check = $this->request->get('id') ? ",".$this->request->get('id') : "";
-        return [
-            'first_name' => 'required|max:250',
-            'last_name' => 'required|max:250',
+        $rules = [
+            'full_name' => 'required|max:250',
             'employee_type_id' => 'required',
             'contact' => 'required|max:20',
             'gender_id' => 'required',
             'is_active' => 'required',
             'license_number' => 'unique:employees,license_number'.$id_check,
         ];
+        if (request()->employee_type_id == 1) {
+            $rules['license_number'] = 'required|unique:employees,license_number'.$id_check;
+            $rules['issued_date_bs'] = 'required|max:10';
+            $rules['issued_date_ad'] = 'required';
+        }
+        return $rules;
     }
 
     /**

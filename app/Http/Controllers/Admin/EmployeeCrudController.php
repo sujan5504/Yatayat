@@ -24,10 +24,8 @@ class EmployeeCrudController extends BaseCrudController
             $this->addRowNumber(),
             $this->addClientIdColumn(),
             [
-                'name' => 'name',
+                'name' => 'full_name',
                 'label' => trans('employee.full_name'),
-                'type' => 'model_function',
-                'function_name' =>'full_name',
             ],
             [
                 'name'=>'employee_type_id',
@@ -74,27 +72,11 @@ class EmployeeCrudController extends BaseCrudController
         $arr = [
             $this->addClientIdField(),
             [
-                'name' => 'first_name',
+                'name' => 'full_name',
                 'type' => 'text',
-                'label' => trans('employee.first_name'),
+                'label' => trans('employee.full_name'),
                 'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'middle_name',
-                'type' => 'text',
-                'label' => trans('employee.middle_name'),
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'last_name',
-                'type' => 'text',
-                'label' => trans('employee.last_name'),
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
+                    'class' => 'form-group col-md-6',
                 ],
             ],
             [

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('admin');
 });
+
+Route::post('api/vehicletype/{vehicle_id}', [VehicleTypeVehicleController::class,'index']);

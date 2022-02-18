@@ -17,10 +17,8 @@ class CreateEmployeesTable extends Migration
             $table->id();
             
             $table->unsignedBigInteger('client_id')->nullable();
-            $table->string('first_name',250);
-            $table->string('middle_name',250)->nullable();
-            $table->string('last_name',250);
-            $table->unsignedBigInteger('employee_type_id');
+            $table->string('full_name',250);
+            $table->unsignedBigInteger('employee_type_id')->nullable();
             $table->string('license_number',100)->nullable(); 
             $table->text('issued_date_bs')->nullable(); 
             $table->text('issued_date_ad')->nullable(); 

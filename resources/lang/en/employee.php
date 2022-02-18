@@ -2,9 +2,6 @@
 return[
     'title_text' => 'Employee',
     'full_name' => 'Full Name',
-    'first_name' => 'First Name',
-    'middle_name' => 'Middle Name',
-    'last_name' => 'Last Name',
     'gender' => 'Gender',
     'employee_type' => 'Employee Type',
     'contact' => 'Contact',

@@ -157,7 +157,6 @@ class VehicleTypeCrudController extends BaseCrudController
             $item = VehicleType::create($data);
             DB::commit();
         }catch(\Throwable $th){
-            dd($th);
             DB::rollback();
         }
 

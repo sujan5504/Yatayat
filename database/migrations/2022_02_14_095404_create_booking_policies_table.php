@@ -16,7 +16,7 @@ class CreateBookingPoliciesTable extends Migration
         Schema::create('booking_policies', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->jsonb('booking_policy');
         
             $table->timestamps();
