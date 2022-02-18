@@ -60,6 +60,7 @@ class ClientCrudController extends BaseCrudController
             $this->addIsActiveField(),
         ];
         $this->crud->addFields($arr);
+        
     }
 
     protected function setupUpdateOperation()

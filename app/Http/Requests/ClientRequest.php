@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientRequest extends FormRequest
@@ -28,7 +29,13 @@ class ClientRequest extends FormRequest
         $id_check = $this->request->get('id') ? ",".$this->request->get('id') : "";
         return [
             'name' => 'required|max:250',
-            'email' => 'required|max:250|unique:clients,name'.$id_check,
+            // 'email' => 'required|max:250|unique:clients,name'.$id_check,
+            'email' => [
+                'required','max:250',
+                Rule::unique('clients')->where(function ($query) {
+                    $query->where('id', '!=', request()->id);
+                })
+            ],
             'contact' => 'required|max:14',
             'is_active' => 'required',
         ];

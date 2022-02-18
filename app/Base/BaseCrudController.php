@@ -149,4 +149,8 @@ class BaseCrudController extends CrudController
             $this->crud->removeColumn('client_id');
         }
     }
+
+    protected function filterDataClientWise(){
+        $this->crud->addClause('where', 'school_id', $this->parent('school_id'));
+    }
 }

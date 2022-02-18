@@ -18,4 +18,16 @@ Route::get('/', function () {
     return redirect('admin');
 });
 
+Route::get('/home', function () {
+    return redirect('admin/dashboard');
+});
+
 Route::post('api/vehicletype/{vehicle_id}', [VehicleTypeVehicleController::class,'index']);
+Route::group([
+    'prefix'     => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), 'superadmin'],
+    'namespace'  => 'App\Http\Controllers\Admin',
+], function () { // custom admin routes
+    Route::crud('client', 'ClientCrudController');
+    Route::crud('role', 'RoleCrudController');
+});
