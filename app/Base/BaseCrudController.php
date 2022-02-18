@@ -151,6 +151,7 @@ class BaseCrudController extends CrudController
     }
 
     protected function filterDataClientWise(){
-        $this->crud->addClause('where', 'school_id', $this->parent('school_id'));
+        $this->crud->addClause('where', 'client_id', '1');
+        $this->crud->addClause('orWhere', 'client_id', backpack_user()->client_id);
     }
 }

@@ -11,6 +11,7 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-gear"></i> Master Data</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('gender') }}'><i class='nav-icon la la-intersex '></i> {{ trans('gender.title_text') }}</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('destination') }}'><i class='nav-icon la la-map-marker'></i> Destinations</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('employeetype') }}'><i class='nav-icon la la-user'></i> {{ trans('employeeType.title_text') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('vehicle') }}'><i class='nav-icon la la-car'></i> {{ trans('vehicle.title_text') }}</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('bookingpolicy') }}'><i class='nav-icon la la-check-square-o'></i> {{ trans('bookingPolicy.title_text') }} </a></li>

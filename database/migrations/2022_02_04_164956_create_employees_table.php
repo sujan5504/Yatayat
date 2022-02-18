@@ -31,10 +31,10 @@ class CreateEmployeesTable extends Migration
 
             $table->timestamps();
             
+            $table->unique(['license_number','client_id'],'uq_employees_license_number_client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('employee_type_id')->references('id')->on('employee_types');
             $table->foreign('gender_id')->references('id')->on('genders');
-            $table->unique('license_number','uq_employees_license_number');
         });
     }
 

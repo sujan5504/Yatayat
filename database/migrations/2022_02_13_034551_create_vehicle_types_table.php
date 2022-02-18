@@ -18,7 +18,7 @@ class CreateVehicleTypesTable extends Migration
 
             $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('vehicle_id')->nullable();
-            $table->text('name')->nullable();
+            $table->string('name',250)->nullable();
             $table->integer('last_row')->nullable();
             $table->integer('right_row')->nullable();
             $table->integer('right_column')->nullable();
@@ -30,6 +30,7 @@ class CreateVehicleTypesTable extends Migration
 
             $table->timestamps();
 
+            $table->unique(['name','client_id'],'uq_vehicle_types_name_client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });

@@ -23,8 +23,8 @@ class CreateVehiclesTable extends Migration
 
             $table->timestamps();
         
+            $table->unique(['name','client_id'],'uq_vehicles_name_client_id');
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->unique('name','uq_vehicles_name');
         });
     }
 

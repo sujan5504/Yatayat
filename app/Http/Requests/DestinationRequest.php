@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientRequest extends FormRequest
+class DestinationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,16 +27,14 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250',
-            // 'email' => 'required|max:250|unique:clients,name'.$id_check,
-            'email' => [
+            'name' => [
                 'required','max:250',
-                Rule::unique('clients')->where(function ($query) {
-                    $query->where('id', '!=', request()->id);
+                Rule::unique('destinations')->where(function ($query) {
+                    $query->where('client_id', request()->client_id)
+                    ->orWhere('client_id',1)
+                    ->where('id', '!=', request()->id);
                 })
             ],
-            'contact' => 'required|max:14',
-            'is_active' => 'required',
         ];
     }
 
@@ -48,10 +46,7 @@ class ClientRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => trans('client.name'),
-            'is_active' => trans('client.is_active'),
-            'email' => trans('client.email'),
-            'contact' => trans('client.contact'),
+            'name' => trans('destination.name'),
         ];
     }
 
