@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Validator;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Auth\RegistersUsers;
 
@@ -61,26 +63,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        $user_model_fqn = config('backpack.base.user_model_fqn');
-        $user = new $user_model_fqn();
-
-        return $user->create([
-            'name' => $data['name'],
-            'contact' => $data['contact'],
-            backpack_authentication_column()   => $data[backpack_authentication_column()],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
     /**
      * Show the application registration form.
      *
@@ -110,15 +92,30 @@ class RegisterController extends Controller
         if (! config('backpack.base.registration_open')) {
             abort(403, trans('backpack::base.registration_closed'));
         }
-
+        
         $this->validator($request->all())->validate();
-// dd($request);
-        $user = $this->create($request->all());
+        
+        try{
+            DB::beginTransaction();
+            
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'contact' => $request->contact,
+                'password' => bcrypt($request->password),
+            ]);
+            $user->assignRoleCustom("user",$user->id);
+            DB::commit();
+
+        }catch(\Throwable $th){
+            dd($th);
+            DB::rollback();
+        }
 
         event(new Registered($user));
         $this->guard()->login($user);
 
-        return redirect($this->redirectPath());
+        return redirect('/login');
     }
 
     /**

@@ -121,12 +121,12 @@ trait AuthenticatesUsers
 
         $user = User::select('id')->where('email', $request->email)->get()->first();
         $model_role = DB::table('model_has_roles')->select('role_id')->where('model_id',$user->id)->get()->first();
-        $role = Role::select('id')->where('id',1)->get()->first();
+        $role = Role::select('id')->where('id', $model_role->role_id)->get()->first();
 
-        if($role->id != '1'){
-            return $request->wantsJson() ? new Response('', 204) : redirect()->intended('/');
+        if($role->id != '4'){
+            return $request->wantsJson() ? new Response('', 204) : redirect('admin/dashboard');
         }else{
-            return $request->wantsJson() ? new Response('', 204) : redirect()->intended('admin/dashboard');
+            return $request->wantsJson() ? new Response('', 204) : redirect('/');
         }
     }
 

@@ -32,6 +32,8 @@ Route::group([
     'namespace'  => 'App\Http\Controllers',
 ], function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('auth.login');
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('auth.login');
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('auth.login');
     Route::post('login', [LoginController::class, 'login']);
     Route::get('logout', [LoginController::class, 'logout'])->name('auth.logout');
     Route::post('logout', [LoginController::class,'logout']);
