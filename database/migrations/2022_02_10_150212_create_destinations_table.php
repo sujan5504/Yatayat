@@ -21,7 +21,7 @@ class CreateDestinationsTable extends Migration
             
             $table->timestamps();
 
-            $table->unique(['name','client_id'],'uq_destinations_name_client_id');
+            $table->unique('name','uq_destinations_name');
             $table->foreign('client_id')->references('id')->on('clients');
         });
     }

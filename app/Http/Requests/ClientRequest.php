@@ -28,7 +28,6 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required|max:250',
-            // 'email' => 'required|max:250|unique:clients,name'.$id_check,
             'email' => [
                 'required','max:250',
                 Rule::unique('clients')->where(function ($query) {

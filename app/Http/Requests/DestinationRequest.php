@@ -30,9 +30,7 @@ class DestinationRequest extends FormRequest
             'name' => [
                 'required','max:250',
                 Rule::unique('destinations')->where(function ($query) {
-                    $query->where('client_id', request()->client_id)
-                    ->orWhere('client_id',1)
-                    ->where('id', '!=', request()->id);
+                    $query->where('id', '!=', request()->id);
                 })
             ],
         ];
