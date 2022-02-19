@@ -80,18 +80,16 @@ class UserCrudController extends BaseCrudController
         $request = $this->crud->validateRequest();
 
         // insert item in the db
-        $item = $this->crud->create($this->crud->getStrippedSaveRequest());
-        $this->data['entry'] = $this->crud->entry = $item;
         try{
             DB::beginTransaction();
     
-            $user = User::create([
+            $item = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt('Client@1234'),
+                'password' => bcrypt($request->password),
                 'client_id' => backpack_user()->client_id,
             ]);
-            $user->assignRoleCustom("operator",$user->id);
+            $item->assignRoleCustom("operator",$item->id);
 
             DB::commit();
 
