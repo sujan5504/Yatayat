@@ -8,7 +8,10 @@
     <title>@yield('title') :: YataYat</title>
     
     <link rel="icon" type="image/png" href="{{ asset('images/train.png') }}">
+
     <link rel="stylesheet" href="{{ asset('packages/bootstrap/dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('packages/line-awesome/css/line-awesome.min.css')}}">
+
     @yield('styles')
 </head>
 

@@ -32,37 +32,37 @@ class VehicleDetailsRequest extends FormRequest
             'vehicle_number' => 'required|max:20',
             'to_id' => 'required',
             'from_id' => 'required',
-            'boarding_point' => function($attribute,$value,$fail){
-                $fieldGroups = $value?json_decode($value):[];
+            // 'boarding_point' => function($attribute,$value,$fail){
+            //     $fieldGroups = $value?json_decode($value):[];
  
-                if (count($fieldGroups) == 0) {
-                    return $fail('Booking Point details is required.');
-                }
+            //     if (count($fieldGroups) == 0) {
+            //         return $fail('Booking Point details is required.');
+            //     }
  
-                $attribute = [
-                    'point' => trans('vehicleDetail.point'),
-                    'price' => trans('vehicleDetail.price'),
-                ];
+            //     $attribute = [
+            //         'point' => trans('vehicleDetail.point'),
+            //         'price' => trans('vehicleDetail.price'),
+            //     ];
  
-                $message = [
-                    'required' => ':attribute is a required field.',
-                ];  
+            //     $message = [
+            //         'required' => ':attribute is a required field.',
+            //     ];  
  
-                foreach($fieldGroups as $key => $group){
-                    $fieldGroupValidator = Validator::make((array)$group,[
-                        'point' => 'required',
-                        'price' => 'required',
-                    ],$message,$attribute);
+            //     foreach($fieldGroups as $key => $group){
+            //         $fieldGroupValidator = Validator::make((array)$group,[
+            //             'point' => 'required',
+            //             'price' => 'required',
+            //         ],$message,$attribute);
  
-                    if ($fieldGroupValidator->fails()) {
-                        // return $fail('One of the entries in the '.$attribute.' group is invalid.');
-                        // alternatively, you could just output the first error
-                        return $fail($fieldGroupValidator->errors()->all());
-                        // or you could use this to debug the errors
-                            // dd($fieldGroupValidator->errors());
-                    }
-                }
-            },
+            //         if ($fieldGroupValidator->fails()) {
+            //             // return $fail('One of the entries in the '.$attribute.' group is invalid.');
+            //             // alternatively, you could just output the first error
+            //             return $fail($fieldGroupValidator->errors()->all());
+            //             // or you could use this to debug the errors
+            //                 // dd($fieldGroupValidator->errors());
+            //         }
+            //     }
+            // },
         ];
     }
 

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Backpack\CRUD\app\Library\Auth\RedirectsUsers;
@@ -116,9 +119,15 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        return $request->wantsJson()
-                    ? new Response('', 204)
-                    : redirect()->intended($this->redirectPath());
+        $user = User::select('id')->where('email', $request->email)->get()->first();
+        $model_role = DB::table('model_has_roles')->select('role_id')->where('model_id',$user->id)->get()->first();
+        $role = Role::select('id')->where('id',1)->get()->first();
+
+        if($role->id != '1'){
+            return $request->wantsJson() ? new Response('', 204) : redirect()->intended('/');
+        }else{
+            return $request->wantsJson() ? new Response('', 204) : redirect()->intended('admin/dashboard');
+        }
     }
 
     /**

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'client_id',
         'email',
         'password',
+        'contact',
     ];
 
     /**
@@ -46,6 +47,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id','id');
+    }
 
     public function assignRoleCustom($role_name, $model_id){
         $roleModel = Role::where('name', $role_name)

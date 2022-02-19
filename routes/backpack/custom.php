@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // --------------------------
 // Custom Backpack Routes
@@ -35,6 +36,6 @@ Route::group([
     Route::get('logout', [LoginController::class, 'logout'])->name('auth.logout');
     Route::post('logout', [LoginController::class,'logout']);
 
-    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
-    Route::post('register', 'Auth\RegisterController@register');
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('auth.register');
+    Route::post('register', [RegisterController::class, 'register']);
 });

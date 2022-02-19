@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Backpack\CRUD\app\Library\Auth\RegistersUsers;
-use Illuminate\Auth\Events\Registered;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Validator;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -31,13 +31,13 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $guard = backpack_guard_name();
+        // $guard = backpack_guard_name();
 
-        $this->middleware("guest:$guard");
+        // $this->middleware("guest:$guard");
 
-        // Where to redirect users after login / registration.
-        $this->redirectTo = property_exists($this, 'redirectTo') ? $this->redirectTo
-            : config('backpack.base.route_prefix', 'dashboard');
+        // // Where to redirect users after login / registration.
+        // $this->redirectTo = property_exists($this, 'redirectTo') ? $this->redirectTo
+        //     : config('backpack.base.route_prefix', 'dashboard');
     }
 
     /**
@@ -54,11 +54,13 @@ class RegisterController extends Controller
         $email_validation = backpack_authentication_column() == 'email' ? 'email|' : '';
 
         return Validator::make($data, [
-            'name'                             => 'required|max:255',
+            'name' => 'required|max:255',
+            'contact' => 'required|min:7|max:14',
             backpack_authentication_column()   => 'required|'.$email_validation.'max:255|unique:'.$users_table,
-            'password'                         => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed',
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -72,9 +74,10 @@ class RegisterController extends Controller
         $user = new $user_model_fqn();
 
         return $user->create([
-            'name'                             => $data['name'],
+            'name' => $data['name'],
+            'contact' => $data['contact'],
             backpack_authentication_column()   => $data[backpack_authentication_column()],
-            'password'                         => bcrypt($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
     }
 
@@ -92,7 +95,7 @@ class RegisterController extends Controller
 
         $this->data['title'] = trans('backpack::base.register'); // set the page title
 
-        return view(backpack_view('auth.register'), $this->data);
+        return view('auth.register', $this->data);
     }
 
     /**
@@ -109,7 +112,7 @@ class RegisterController extends Controller
         }
 
         $this->validator($request->all())->validate();
-
+// dd($request);
         $user = $this->create($request->all());
 
         event(new Registered($user));

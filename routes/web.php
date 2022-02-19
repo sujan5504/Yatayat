@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
@@ -15,9 +16,7 @@ use App\Http\Controllers\Api\VehicleTypeVehicleController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('login');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/home', function () {
     return redirect('admin/dashboard');
@@ -32,4 +31,6 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('client', 'ClientCrudController');
     Route::crud('role', 'RoleCrudController');
+    Route::crud('user', 'UserCrudController');
+
 });

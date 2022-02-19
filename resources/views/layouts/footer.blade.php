@@ -24,7 +24,7 @@
                     <p><i class="fa fa-home mr-3"></i> Putalisadak, Kathmandu, Nepal</p>
                     <p><i class="fa fa-envelope mr-3"></i> yatayat@gmail.com</p>
                     <p><i class="fa fa-phone mr-3"></i> 014417924</p>
-                    <p><i class="fa fa-globe mr-3"> <a class="text-white" href="#">teamof3.com.np</a></i> </p>
+                    <p><i class="fa fa-globe mr-3"> <a class="text-white" href="javascript:;">teamof3.com.np</a></i> </p>
                 </div>
 
                 {{-- <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
@@ -37,13 +37,13 @@
             </div>
         </section>
 
-        <hr class="my-3">
+        {{--<hr class="my-3">
 
         <section class="p-3 pt-0">
             <div class="row d-flex align-items-center">
                 <div class="col-md-7 col-lg-8 text-center text-md-start">
                     <div class="p-3">
-                        ©2021 YataYat. All Rights Reserved
+                        ©2022 YataYat. All Rights Reserved
                     </div>
                 </div>
                 <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
@@ -60,6 +60,6 @@
                             class="fa fa-instagram"></i></a>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </div>
 </footer>

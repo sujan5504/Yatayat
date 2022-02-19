@@ -50,6 +50,12 @@ class BaseCrudController extends CrudController
         ];
     }
 
+    protected function hideClientIdColumn(){
+        if(backpack_user()->hasRole('clientadmin') || backpack_user()->hasRole('operator') || backpack_user()->hasRole('user')){
+            $this->crud->removeColumn('client_id');
+        }
+    }
+    
     protected function addClientIdField(){
         if(backpack_user()->hasRole('superadmin')){
             return[
@@ -142,12 +148,6 @@ class BaseCrudController extends CrudController
                 'class' => 'form-group col-md-12',
             ],  
         ];
-    }
-
-    protected function hideClientIdColumn(){
-        if(backpack_user()->hasRole('clientadmin') || backpack_user()->hasRole('operator') || backpack_user()->hasRole('user')){
-            $this->crud->removeColumn('client_id');
-        }
     }
 
     protected function filterDataClientWise(){

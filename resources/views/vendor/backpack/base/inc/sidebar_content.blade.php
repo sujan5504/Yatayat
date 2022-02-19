@@ -4,8 +4,10 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('vehicledetail') }}'><i class='nav-icon la la-list-alt'></i> {{ trans('vehicleDetail.title_text') }}</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('vehicletype') }}'><i class='nav-icon la la-bus'></i> {{ trans('vehicleType.title_text') }}</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('employee') }}'><i class='nav-icon la la-users'></i> {{ trans('employee.title_text') }}</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
 
+@if(backpack_user()->hasRole('superadmin') || backpack_user()->hasRole('clientadmin'))
+    <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
+@endif
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-gear"></i> Master Data</a>

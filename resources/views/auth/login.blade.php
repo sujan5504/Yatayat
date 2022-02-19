@@ -11,7 +11,7 @@
     <div class="card mt-3 mb-3 col-md-4 ">
         <h3 class="text-center mb-4">{{ trans('backpack::base.login') }}</h3>
         <div class="card-body">
-            <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.login') }}">
+            <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('auth.login') }}">
                 {!! csrf_field() !!}
 
                 <div class="form-group">
@@ -47,7 +47,7 @@
                 &nbsp;
 
                 @if (config('backpack.base.registration_open'))
-                    <div class="text-center">Don't have an account? <a href="{{ route('backpack.auth.register') }}"> Register Here</a></div>
+                    <div class="text-center">Don't have an account? <a href="{{ route('auth.register') }}"> Register Here</a></div>
                 @endif
             </form>
         </div>

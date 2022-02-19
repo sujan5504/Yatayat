@@ -30,7 +30,9 @@ class VehicleDetails extends Model
     |--------------------------------------------------------------------------
     */
     public function from_to(){
-        return $this->from.'<br>'.$this->to;
+        $from = Destination::where('id',$this->from_id)->pluck('name')->first();
+        $to = Destination::where('id',$this->to_id)->pluck('name')->first();
+        return $from.'<br>'.$to;
     }
 
     /*
