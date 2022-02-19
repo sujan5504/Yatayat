@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+
 // --------------------------
 // Custom Backpack Routes
 // --------------------------
@@ -22,3 +25,16 @@ Route::group([
     Route::crud('vehicledetail', 'VehicleDetailsCrudController');
     Route::crud('destination', 'DestinationCrudController');
 }); // this should be the absolute last line of this file
+
+Route::group([
+    'middleware' => ['web'],
+    'namespace'  => 'App\Http\Controllers',
+], function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('auth.login');
+    Route::post('login', [LoginController::class, 'login']);
+    Route::get('logout', [LoginController::class, 'logout'])->name('auth.logout');
+    Route::post('logout', [LoginController::class,'logout']);
+
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('auth.register');
+    Route::post('register', 'Auth\RegisterController@register');
+});

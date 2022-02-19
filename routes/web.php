@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
 /*
@@ -15,7 +16,7 @@ use App\Http\Controllers\Api\VehicleTypeVehicleController;
 */
 
 Route::get('/', function () {
-    return redirect('admin');
+    return redirect('login');
 });
 
 Route::get('/home', function () {
