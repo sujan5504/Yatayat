@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
 /*
@@ -43,3 +44,5 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('user', 'UserCrudController');
 });
+
+Route::resource('userprofile', UserProfileController::class);

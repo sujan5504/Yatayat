@@ -8,16 +8,26 @@
     <title>@yield('title') :: YataYat</title>
     
     <link rel="icon" type="image/png" href="{{ asset('images/train.png') }}">
+    
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('packages/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('packages/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/nepali.datepicker.v2.2.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('packages/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('packages/line-awesome/css/line-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('packages/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nepali.datepicker.v2.2.min.css') }}">
 
     @yield('styles')
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="{{ asset('packages/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
     @include('layouts.header')
     
     @yield('content')

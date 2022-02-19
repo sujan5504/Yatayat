@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Destination;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        $places = Destination::all();
-        return view('index',compact('places'));
+    {
     }
 
     /**
@@ -59,7 +57,8 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::whereId($id)->get()->first();
+        return view('userprofile', compact('user'));
     }
 
     /**
