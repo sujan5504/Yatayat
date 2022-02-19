@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Vehicle;
 use App\Models\Employee;
+use App\Models\Destination;
 use App\Models\VehicleType;
 use App\Models\BoardingPoint;
 use App\Models\VehicleDetails;
@@ -121,27 +122,32 @@ class VehicleDetailsCrudController extends BaseCrudController
                 ]
             ],
             [
-                'name' => 'from',
-                'type' => 'text',
+                'name' => 'from_id',
+                'type' => 'select2',
                 'label' => trans('vehicleDetail.from'),
+                'entity' => 'from',
+                'model' => Destination::class,
+                'attribute' => 'name',
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],
             ],
             [
-                'name' => 'to',
-                'type' => 'text',
+                'name' => 'to_id',
+                'type' => 'select2',
                 'label' => trans('vehicleDetail.to'),
+                'entity' => 'to',
+                'model' => Destination::class,
+                'attribute' => 'name',
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],
             ],
-            
             [
                 'name' => 'driver_employee_id',
                 'type' => 'select2',
                 'label' => trans('vehicleDetail.driver'),
-                'entity' => 'employee',
+                'entity' => 'driver',
                 'model' => Employee::class,
                 'attribute' => 'full_name',
                 'options'   => (function ($query) {
@@ -155,7 +161,7 @@ class VehicleDetailsCrudController extends BaseCrudController
                 'name' => 'conductor_employee_id',
                 'type' => 'select2',
                 'label' => trans('vehicleDetail.conductor'),
-                'entity' => 'employee',
+                'entity' => 'conductor',
                 'model' => Employee::class,
                 'attribute' => 'full_name',
                 'wrapperAttributes' => [

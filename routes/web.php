@@ -23,9 +23,10 @@ Route::get('/home', function () {
 });
 
 Route::post('api/vehicletype/{vehicle_id}', [VehicleTypeVehicleController::class,'index']);
+
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['web', config('backpack.base.middleware_key', 'admin'), 'superadmin'],
+    'middleware' => [config('backpack.base.middleware_key', 'admin'), 'superadmin'],
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('client', 'ClientCrudController');

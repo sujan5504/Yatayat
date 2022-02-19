@@ -30,8 +30,8 @@ class VehicleDetailsRequest extends FormRequest
             'vehicle_id' => 'required',
             'vehicle_type_id' => 'required',
             'vehicle_number' => 'required|max:20',
-            'to' => 'required',
-            'from' => 'required',
+            'to_id' => 'required',
+            'from_id' => 'required',
             'boarding_point' => function($attribute,$value,$fail){
                 $fieldGroups = $value?json_decode($value):[];
  
@@ -77,8 +77,8 @@ class VehicleDetailsRequest extends FormRequest
             'vehicle_id' => trans('vehicleDetail.vehicle'),
             'vehicle_type_id' => trans('vehicleDetail.vehicle_type'),
             'vehicle_number' => trans('vehicleDetail.vehicle_number'),
-            'to' => trans('vehicleDetail.to'),
-            'from' => trans('vehicleDetail.from'),
+            'to_id' => trans('vehicleDetail.to'),
+            'from_id' => trans('vehicleDetail.from'),
         ];
     }
 

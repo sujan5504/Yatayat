@@ -19,7 +19,8 @@ class VehicleDetails extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['client_id','vehicle_id','vehicle_type_id','vehicle_number','driver_employee_id','conductor_employee_id','amenities','to','from','boarding_point'];
+    protected $fillable = ['client_id','vehicle_id','vehicle_type_id','vehicle_number','driver_employee_id','conductor_employee_id',
+                        'amenities','to_id','from_id','boarding_point'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -46,8 +47,17 @@ class VehicleDetails extends Model
     public function vehicle_type(){
         return $this->belongsTo(VehicleType::class,'vehicle_type_id','id');
     }
-    public function employee(){
-        return $this->belongsTo(Employee::class,'employee_id','id');
+    public function driver(){
+        return $this->belongsTo(Employee::class,'driver_employee_id','id');
+    }
+    public function conductor(){
+        return $this->belongsTo(Employee::class,'conductor_employee_id','id');
+    }
+    public function from(){
+        return $this->belongsTo(Destination::class,'from_id','id');
+    }
+    public function to(){
+        return $this->belongsTo(Destination::class,'to_id','id');
     }
 
     /*
