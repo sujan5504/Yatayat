@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Gender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Prologue\Alerts\Facades\Alert;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
@@ -57,8 +61,11 @@ class UserProfileController extends Controller
      */
     public function edit($id)
     {
-        $user = User::whereId($id)->get()->first();
-        return view('userprofile', compact('user'));
+        $userdata = User::whereId($id)->get()->first();
+        $genders = Gender::all();
+        $user_gender = Gender::where('id', $userdata->gender_id)->pluck('name')->first(); 
+
+        return view('userprofile', compact('userdata','genders','user_gender'));
     }
 
     /**
@@ -70,7 +77,24 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try{   
+            User::whereId($id)->update([
+                'name' => $request->name,
+                'contact' => $request->contact,
+                'age' => $request->age,
+                'district' => $request->district,
+                'city' => $request->city,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'gender_id' => $request->gender_id,
+            ]);
+            DB::commit();
+        }catch(\Throwable $th){
+            dd($th);
+            DB::rollback();
+        }
+        return redirect()->route('userprofile.edit',$id);
     }
 
     /**

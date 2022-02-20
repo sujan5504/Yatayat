@@ -46,3 +46,6 @@ Route::group([
 });
 
 Route::resource('userprofile', UserProfileController::class);
+Route::get('aboutus',function(){
+    return view('aboutus');
+});

@@ -16,7 +16,7 @@
         <a class="nav-link text-white" href="{{ url('/') }}">Home </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="javascript:;">About Us </a>
+        <a class="nav-link text-white" href="{{ url('aboutus') }}">About Us </a>
       </li>
       @if($user)
         <li class="nav-item">
