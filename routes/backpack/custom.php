@@ -25,8 +25,9 @@ Route::group([
     Route::crud('bookingpolicy', 'BookingPolicyCrudController');
     Route::crud('vehicledetail', 'VehicleDetailsCrudController');
     Route::crud('destination', 'DestinationCrudController');
+    Route::crud('vehicleseat', 'VehicleSeatCrudController');
+    Route::crud('checkvehiclehire', 'CheckVehicleHireCrudController');
 }); // this should be the absolute last line of this file
-
 Route::group([
     'middleware' => ['web'],
     'namespace'  => 'App\Http\Controllers',

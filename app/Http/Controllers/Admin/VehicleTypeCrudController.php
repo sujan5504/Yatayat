@@ -24,6 +24,7 @@ class VehicleTypeCrudController extends BaseCrudController
         $cols = [
             $this->addRowNumber(),
             $this->addClientIdColumn(),
+            $this->addNameColumn(),
             [
                 'name' => 'vehicle_id',
                 'type' => 'select',

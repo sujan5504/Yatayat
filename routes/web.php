@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Admin\VehicleHireController;
+use App\Http\Controllers\Api\VehicleTypeVehicleDetail;
 use App\Http\Controllers\Api\DependentDropdownController;
 use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
@@ -26,6 +27,7 @@ Route::get('/home', function () {
 });
 
 Route::post('api/vehicletype/{vehicle_id}', [VehicleTypeVehicleController::class,'index']);
+Route::post('api/vehicledetail/{vehicle_id}', [VehicleTypeVehicleDetail::class,'index']);
 Route::get('/getvehicle/{id}', [DependentDropdownController::class, 'getvehicle']);
 
 Route::group([
