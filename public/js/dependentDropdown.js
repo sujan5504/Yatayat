@@ -25,7 +25,6 @@ function getVehicle(){
                     $('#getvehicle').focus;
                     $('#getvehicle').append('<option value="">Select Vehicle</option>');
                     var selected_id = $.urlParam("getvehicle");
-                    console.log(data);
                     $.each(data, function(key, value) {
                         var selected = "";
                         if (selected_id == value.id) {

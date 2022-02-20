@@ -61,7 +61,6 @@ class VehicleHireController extends Controller
             ]);
             DB::commit();
         }catch(\Throwable $th){
-            dd($th);
             DB::rollback();
         }
         return redirect()->route('vehiclehire.create');
