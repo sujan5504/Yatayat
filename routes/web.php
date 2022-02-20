@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserProfileController;
+use App\Http\Controllers\Admin\VehicleHireController;
+use App\Http\Controllers\Api\DependentDropdownController;
 use App\Http\Controllers\Api\VehicleTypeVehicleController;
 
 /*
@@ -24,6 +26,7 @@ Route::get('/home', function () {
 });
 
 Route::post('api/vehicletype/{vehicle_id}', [VehicleTypeVehicleController::class,'index']);
+Route::get('/getvehicle/{id}', [DependentDropdownController::class, 'getvehicle']);
 
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -46,6 +49,7 @@ Route::group([
 });
 
 Route::resource('userprofile', UserProfileController::class);
+Route::resource('vehiclehire', VehicleHireController::class);
 Route::get('aboutus',function(){
     return view('aboutus');
 });

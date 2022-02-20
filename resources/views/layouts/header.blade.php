@@ -36,3 +36,28 @@
     </ul>
   </div>
 </nav>
+
+<div align="right" style="margin-right:20px; margin-top:2px">
+        <a href="javascript:;" class="btn btn-md btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">SEARCH TICKET</a>
+        <a class="btn btn-md btn-secondary" href="{{ route('vehiclehire.create') }}">VEHICLE HIRE</a>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="staticBackdropLabel">Search Ticket</h5>
+                    <i class="la la-times la-2x" id="close" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"></i>
+                </div>
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Ticket Number:</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Eg:124xyba4677">
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button " class="btn btn-primary btn-block">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
