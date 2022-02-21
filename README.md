@@ -7,4 +7,4 @@ php artisan migrate --seed    \
 \
 superadmin credentials    \
 super@yatayat.com    \
-yatayat@1234     \
+yatayat@1234     
