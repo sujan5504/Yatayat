@@ -55,12 +55,16 @@ class VehicleDetailsCrudController extends BaseCrudController
                 'function_name' => 'from_to',
             ],
             [
+                'name' => 'price',
+                'label' => trans('vehicleDetail.price'),
+            ],
+            [
                 'name'  => 'boarding_point',
                 'label' => trans('vehicleDetail.boarding_point'),
                 'type'  => 'table',
                 'columns' => [
-                    'point'        => trans('vehicleDetail.point'),
-                    'price' => trans('vehicleDetail.price'),
+                    'point' => trans('vehicleDetail.point'),
+                    'point_price' => trans('vehicleDetail.price'),
                 ]
             ],
             [
@@ -144,6 +148,14 @@ class VehicleDetailsCrudController extends BaseCrudController
                 ],
             ],
             [
+                'name' => 'price',
+                'type' => 'number',
+                'label' => trans('vehicleDetail.price'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-3',
+                ],
+            ],
+            [
                 'name' => 'driver_employee_id',
                 'type' => 'select2',
                 'label' => trans('vehicleDetail.driver'),
@@ -172,6 +184,14 @@ class VehicleDetailsCrudController extends BaseCrudController
                 }),
             ],
             [
+                'name' => 'legend',
+                'type' => 'custom_html',
+                'value' => '',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-8',
+                ],
+            ],
+            [
                 'name'            => 'boarding_point',
                 'label'           => trans('vehicleDetail.boarding_point'),
                 'type'            => 'repeatable',
@@ -183,7 +203,7 @@ class VehicleDetailsCrudController extends BaseCrudController
                         'wrapper' => ['class' => 'form-group col-md-6'],
                     ],
                     [
-                        'name' => 'price',
+                        'name' => 'point_price',
                         'type' => 'text',
                         'label' => trans('vehicleDetail.price'),
                         'wrapper' => ['class' => 'form-group col-md-6'],

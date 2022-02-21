@@ -20,7 +20,7 @@ class VehicleDetails extends Model
     // public $timestamps = false;
     protected $guarded = ['id'];
     protected $fillable = ['client_id','vehicle_id','vehicle_type_id','vehicle_number','driver_employee_id','conductor_employee_id',
-                        'amenities','to_id','from_id','boarding_point'];
+                        'amenities','to_id','from_id','boarding_point','price'];
     // protected $hidden = [];
     // protected $dates = [];
 

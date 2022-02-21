@@ -32,6 +32,7 @@ class VehicleDetailsRequest extends FormRequest
             'vehicle_number' => 'required|max:20',
             'to_id' => 'required',
             'from_id' => 'required',
+            'price' => 'required',
             // 'boarding_point' => function($attribute,$value,$fail){
             //     $fieldGroups = $value?json_decode($value):[];
  
@@ -79,6 +80,7 @@ class VehicleDetailsRequest extends FormRequest
             'vehicle_number' => trans('vehicleDetail.vehicle_number'),
             'to_id' => trans('vehicleDetail.to'),
             'from_id' => trans('vehicleDetail.from'),
+            'price' => trans('vehicleDetail.price'),
         ];
     }
 
