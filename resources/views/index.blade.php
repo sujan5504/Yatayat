@@ -16,36 +16,42 @@
             </div>
         </div>
         <div class="container" align="center">
-                <form action="">
-                    
-                    <div class="row" id="form-box" >
-                    <div class="row">
-                        <div class="col-md-4">
-                            <select class="form-control searchselect" name="" id="">
-                                <option disabled selected value="" style="font-weight:bold;">From (Soruce)</option>
-                                @foreach($places as $place)
-                                    <option class="form-control" value="{{ $place->id }}">{{ $place->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control searchselect" name="" id="">
-                                <option disabled selected value="" style="font-weight:bold;">To (Destination)</option>
-                                @foreach($places as $place)
-                                    <option class="form-control" value="{{ $place->id }}">{{ $place->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="date" name="date" placeholder="Date"></input>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-md btn-danger" type="reset"><i class="la la-times"></i> Clear</button>
-                        </div>
-                    </div>
-                    </div>
-                </form>
+                
+            <div class="row" id="form-box">
+                <div class="col-md-3">
+                    <select class="form-control searchselect" name="vehicle_id" id="vehicle_id" onchange="getVehicleSeatData()">
+                        <option disabled selected value="">Vehicle</option>
+                        <option value="2">Bus</option>
+                        <option value="4">Hiace</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="booking_date" name="date" placeholder="Date" oninput="getVehicleSeatData()"></input>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control searchselect" name="from_id" id="from_id" onchange="getVehicleSeatData()">
+                        <option disabled selected value="" style="font-weight:bold;">From (Soruce)</option>
+                        @foreach($places as $place)
+                            <option class="form-control" value="{{ $place->id }}">{{ $place->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control searchselect" name="to_id" id="to_id" onchange="getVehicleSeatData()">
+                        <option disabled selected value="" style="font-weight:bold;">To (Destination)</option>
+                        @foreach($places as $place)
+                            <option class="form-control" value="{{ $place->id }}">{{ $place->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- <div class="col-md-2">
+                    <button class="btn btn-md btn-danger" type="reset"><i class="la la-times"></i></button>
+                </div> -->
             </div>
+        </div>
+    </div>
+
+    <div id="vehicle_infomration" class="ml-2 mr-2 pt-3 pb-3" style="background-color:#eee; float:center;">
     </div>
 
     <!-- steps -->
@@ -92,8 +98,11 @@
 
 @section('styles')
     <style>
+        #container-width{
+            max-width: 1290px;
+        }
         #date{
-            width: 130%;
+            /* width: 130%; */
         }
         .card{
             border: 3px solid white;
@@ -137,11 +146,37 @@
         $(document).ready(function () {
             $('.searchselect').select2();
 
-            $('#date').nepaliDatePicker({
+            $('#booking_date').nepaliDatePicker({
                 npdMonth: true,
                 npdYear: true,
                 npdYearCount: 10,
+                onChange: function() {
+                    getVehicleSeatData();
+            	}
             });
+
+            getVehicleSeatData();
         });
+
+        function getVehicleSeatData(){
+            let data = {
+                vehicle_id: $('#vehicle_id').val(),
+                from_id : $('#from_id').val(),
+                to_id : $('#to_id').val(),
+                date : $('#booking_date').val(),
+            }
+
+            $.ajax({
+            type: "POST",
+            url: "/getvehicleseatdetails",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: data,
+            success: function(response){
+                $('#vehicle_infomration').html(response);
+            }
+        });
+        }
     </script>
 @endsection

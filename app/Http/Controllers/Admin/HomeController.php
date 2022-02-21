@@ -84,4 +84,13 @@ class HomeController extends Controller
     {
         //
     }
+
+    public function getVehicleSeatDetails(Request $request){
+        $vehicle_id = $request->vehicle_id;
+        $date = $request->date;
+        $from_id = $request->from_id;
+        $to_id = $request->to_id;
+        
+        
+    }
 }

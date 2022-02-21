@@ -20,8 +20,6 @@ use App\Http\Controllers\Api\VehicleTypeVehicleController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-
 Route::get('/home', function () {
     return redirect('admin/dashboard');
 });
@@ -50,6 +48,8 @@ Route::group([
     Route::crud('user', 'UserCrudController');
 });
 
+Route::get('/', [HomeController::class, 'index']);
+Route::post('/getvehicleseatdetails', [HomeController::class, 'getVehicleSeatDetails']);
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('vehiclehire', VehicleHireController::class);
 Route::get('aboutus',function(){
