@@ -46,26 +46,7 @@ class VehicleDetailsCrudController extends BaseCrudController
             ],
             [
                 'name' => 'vehicle_number',
-                'label' => trans('vehicleDetail.vehicle_number'),
-            ],
-            [
-                'name' => 'fromto',
-                'label' => trans('vehicleDetail.from').'<br>'.trans('vehicleDetail.to'),
-                'type' => 'model_function',
-                'function_name' => 'from_to',
-            ],
-            [
-                'name' => 'price',
-                'label' => trans('vehicleDetail.price'),
-            ],
-            [
-                'name'  => 'boarding_point',
-                'label' => trans('vehicleDetail.boarding_point'),
-                'type'  => 'table',
-                'columns' => [
-                    'point' => trans('vehicleDetail.point'),
-                    'point_price' => trans('vehicleDetail.price'),
-                ]
+                'label' => 'Vehicle Number',
             ],
             [
                 'name'  => 'amenities',
@@ -124,95 +105,6 @@ class VehicleDetailsCrudController extends BaseCrudController
                 'attributes' => [
                     'id' => 'vehicle_number',
                 ]
-            ],
-            [
-                'name' => 'from_id',
-                'type' => 'select2',
-                'label' => trans('vehicleDetail.from'),
-                'entity' => 'from',
-                'model' => Destination::class,
-                'attribute' => 'name',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'to_id',
-                'type' => 'select2',
-                'label' => trans('vehicleDetail.to'),
-                'entity' => 'to',
-                'model' => Destination::class,
-                'attribute' => 'name',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'price',
-                'type' => 'number',
-                'label' => trans('vehicleDetail.price'),
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'driver_employee_id',
-                'type' => 'select2',
-                'label' => trans('vehicleDetail.driver'),
-                'entity' => 'driver',
-                'model' => Employee::class,
-                'attribute' => 'full_name',
-                'options'   => (function ($query) {
-                    return $query->where('employee_type_id', 1)->get();
-                }),
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-            ],
-            [
-                'name' => 'conductor_employee_id',
-                'type' => 'select2',
-                'label' => trans('vehicleDetail.conductor'),
-                'entity' => 'conductor',
-                'model' => Employee::class,
-                'attribute' => 'full_name',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-3',
-                ],
-                'options'   => (function ($query) {
-                    return $query->where('employee_type_id', 2)->get();
-                }),
-            ],
-            [
-                'name' => 'legend',
-                'type' => 'custom_html',
-                'value' => '',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-8',
-                ],
-            ],
-            [
-                'name'            => 'boarding_point',
-                'label'           => trans('vehicleDetail.boarding_point'),
-                'type'            => 'repeatable',
-                'fields'         => [
-                    [
-                        'name' => 'point',
-                        'type' => 'text',
-                        'label' => trans('vehicleDetail.point'),
-                        'wrapper' => ['class' => 'form-group col-md-6'],
-                    ],
-                    [
-                        'name' => 'point_price',
-                        'type' => 'text',
-                        'label' => trans('vehicleDetail.price'),
-                        'wrapper' => ['class' => 'form-group col-md-6'],
-                    ],
-                ],
-                'new_item_label'  => 'Add Boarding Point',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-6',
-                ],
             ],
             [
                 'name'            => 'amenities',

@@ -11,7 +11,7 @@
   </button>
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav text-center">
       <li class="nav-item">
         <a class="nav-link text-white" href="{{ url('/') }}">Home </a>
       </li>
@@ -37,14 +37,12 @@
   </div>
 </nav>
 
-<div align="right" style="margin-right:20px; margin-top:2px">
-  @if(isset($user))
+@if(isset($user))
+  <div align="right" style="margin-right:20px; margin-top:2px">
     <a href="javascript:;" class="btn btn-md btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">SEARCH TICKET</a>
     <a class="btn btn-md btn-secondary" href="{{ route('vehiclehire.create') }}">VEHICLE HIRE</a>
-  @else
-  Please login in order to access full services.
-  @endif
-</div>
+  </div>
+@endif
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">

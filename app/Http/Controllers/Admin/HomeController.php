@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Destination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -91,6 +92,10 @@ class HomeController extends Controller
         $from_id = $request->from_id;
         $to_id = $request->to_id;
         
-        
+        // $sql = "SELECT ";
+
+        // $data = DB::select($sql);
+        // dd($data);
+        return view('index_data');
     }
 }

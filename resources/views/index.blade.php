@@ -51,8 +51,7 @@
         </div>
     </div>
 
-    <div id="vehicle_infomration" class="ml-2 mr-2 pt-3 pb-3" style="background-color:#eee; float:center;">
-    </div>
+    <div id="vehicle_infomration" class="ml-2 mr-2 pt-3 pb-3" style="background-color:#eee; float:center;"></div>
 
     <!-- steps -->
     <div class="mt-2 mb-3" style="background-color:#39c9dc;font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;">

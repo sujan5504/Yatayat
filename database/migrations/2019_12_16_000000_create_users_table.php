@@ -23,10 +23,15 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-
+            $table->integer('age')->nullable();
+            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->string('district')->nullable();
+            $table->string('city')->nullable();
+            
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('gender_id')->references('id')->on('genders');
         });
     }
 

@@ -12,4 +12,7 @@ return[
     'conductor' => 'Conductor',
     'price' => 'Price',
     'from' => 'From (Source)',
+    'departure_time' => 'Departure Time',
+    'time' => 'Time',
+    'dropping_point' => 'Dropping Point',
 ];

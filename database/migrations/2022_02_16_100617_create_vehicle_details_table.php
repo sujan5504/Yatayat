@@ -20,12 +20,7 @@ class CreateVehicleDetailsTable extends Migration
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->unsignedBigInteger('vehicle_type_id')->nullable();
             $table->string('vehicle_number',20);
-            $table->unsignedBigInteger('driver_employee_id')->nullable();
-            $table->unsignedBigInteger('conductor_employee_id')->nullable();
             $table->jsonb('amenities')->nullable();
-            $table->jsonb('boarding_point');
-            $table->unsignedBigInteger('from_id');
-            $table->unsignedBigInteger('to_id');
 
             $table->timestamps();
 
@@ -34,10 +29,6 @@ class CreateVehicleDetailsTable extends Migration
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types');
-            $table->foreign('driver_employee_id')->references('id')->on('employees');
-            $table->foreign('conductor_employee_id')->references('id')->on('employees');
-            $table->foreign('from_id')->references('id')->on('destinations');
-            $table->foreign('to_id')->references('id')->on('destinations');
         });
     }
 
