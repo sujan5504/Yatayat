@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- search -->
-    <div class="mt-3 mb-5" id="back">
+    <div class="mt-3 mb-2" id="back">
         <div class="row text-center text-white text-uppercase pt-5 pb-5">
             <div class="col-md-12">
                 <h1 class="font-weight-bold">Search For Vehicles</h1>
@@ -51,7 +51,18 @@
         </div>
     </div>
 
-    <div id="vehicle_infomration" class="ml-2 mr-2 pt-3 pb-3" style="background-color:#eee; float:center;"></div>
+    <div class="container p-3" id="container-width" style="background-color:#eee"> 
+        <div class="card mb-2 w-100">
+            <div class="card-body row p-1" style="--bs-gutter-x:-0.5rem">
+                <div class="col-md-3 text-dark fs-5 text-break">Travels</div>
+                <div class="col-md-3 text-dark fs-5 text-break">Vehicle Type</div>
+                <div class="col-md-2 text-dark fs-5 text-break">Departure Date <br> Time</div>
+                <div class="col-md-2 text-dark fs-5 text-break">Fear</div>
+                <div class="col-md-2 text-dark fs-5 text-break">Seats Avaliable</div>
+            </div>
+        </div>
+        <div id="vehicle_search_datas"></div>
+    </div>
 
     <!-- steps -->
     <div class="mt-2 mb-3" style="background-color:#39c9dc;font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;">
@@ -62,7 +73,7 @@
                     <blockquote class="blockquote mb-0 card-body">
                         <img src="{{ asset('images\search.png') }}">
                         <footer class="blockquote-footer">
-                            <h5> Search yatayat</h5>
+                            <h5> Search Vehicle</h5>
                         </footer>
                     </blockquote>
                 </div>
@@ -72,7 +83,7 @@
                         <img src="{{ asset('images\book.png') }}">
                         <footer class="blockquote-footer">
                             <small class="text-muted">
-                                <h5> Book seats</h5>
+                                <h5> Book Seats</h5>
                             </small>
                         </footer>
                     </blockquote>
@@ -154,7 +165,7 @@
             	}
             });
 
-            getVehicleSeatData();
+            // getVehicleSeatData();
         });
 
         function getVehicleSeatData(){
@@ -164,6 +175,7 @@
                 to_id : $('#to_id').val(),
                 date : $('#booking_date').val(),
             }
+            $('#vehicle_search_datas').html('<div class="text-center"><img src="{{ asset("images/loading.gif")}}"/></div>');
 
             $.ajax({
             type: "POST",
@@ -173,7 +185,7 @@
             },
             data: data,
             success: function(response){
-                $('#vehicle_infomration').html(response);
+                $('#vehicle_search_datas').html(response);
             }
         });
         }
