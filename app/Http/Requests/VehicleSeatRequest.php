@@ -47,7 +47,6 @@ class VehicleSeatRequest extends FormRequest
                 $attribute = [
                     'point' => trans('vehicleDetail.boarding_point'),
                     'time' => trans('vehicleDetail.time'),
-                    'point_price' => trans('vehicleDetail.price'),
                 ];
  
                 $message = [
@@ -58,7 +57,6 @@ class VehicleSeatRequest extends FormRequest
                     $fieldGroupValidator = Validator::make((array)$group,[
                         'point' => 'required',
                         'time' => 'required',
-                        'point_price' => 'required',
                     ],$message,$attribute);
  
                     if ($fieldGroupValidator->fails()) {

@@ -247,12 +247,6 @@ class VehicleSeatCrudController extends BaseCrudController
                         'label' => trans('vehicleDetail.time'),
                         'wrapper' => ['class' => 'form-group col-md-4'],
                     ],
-                    [
-                        'name' => 'point_price',
-                        'type' => 'text',
-                        'label' => trans('vehicleDetail.price'),
-                        'wrapper' => ['class' => 'form-group col-md-4'],
-                    ],
                 ],
                 'new_item_label'  => 'Add Boarding Point',
                 'wrapperAttributes' => [

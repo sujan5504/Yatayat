@@ -1,5 +1,5 @@
 @if($datas)
-@foreach($datas as $data)
+    @foreach($datas as $data)
         @php 
             $boarding_points = json_decode($data->boarding_point);
             $dropping_points = json_decode($data->dropping_point);
@@ -18,8 +18,9 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading_{{$data->id}}">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
-                            aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="loadSeat('<?= $id ?>','<?= $driver_side ?>', '<?= $last_row ?>');
-                            loadMiddleSeat('<?= $right_row ?>','<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->id ?>');">
+                            aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="clearSeat('<?= $id ?>');
+                            loadSeat('<?= $id ?>','<?= $driver_side ?>', '<?= $last_row ?>','<?= $right_row ?>',
+                                '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->id ?>');">
                         <div class="row w-100">
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->client_name }}</div>
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
@@ -36,12 +37,30 @@
                                 <h4>{{ $data->from_name}} to {{ $data->to_name}}</h4>
                                 <div class="row">
                                     <div class="col-md-5 form-group">
-                                        <label for="seat_number">Seat Number</label>
-                                        <input type="text" name="seat_number" id="seat_number" class="form-control" readonly>
+                                        <label for="seat_number">Seat Number <span class="text-danger">*</span></label>
+                                        <input type="text" name="seat_number" id="seat_number_{{$data->id}}" class="form-control" readonly required>
                                     </div>
                                     <div class="col-md-5 form-group">
-                                        <label for="total_price">Total Price</label>
-                                        <input type="text" name="total_price" id="total_price" class="form-control" readonly>
+                                        <label for="total_price">Total Price <span class="text-danger">*</span></label>
+                                        <input type="text" name="total_price" id="total_price_{{$data->id}}" class="form-control" readonly required>
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                        <label for="boarding_point">Boarding Point (Point - Time)</label>
+                                        <select class="form-control" name="boarding_point" id="boarding_point_{{$data->id}}">
+                                            @foreach($boarding_points as $bp)
+                                                <option class="form-control" value="{{ $bp->point }} - {{date_format(date_create($bp->time), 'h:i A')}}">
+                                                {{ $bp->point }} - {{date_format(date_create($bp->time), 'h:i A')}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                        <label for="dropping_point">Dropping Point (Point - Price)</label>
+                                        <select class="form-control" name="dropping_point" id="dropping_point_{{$data->id}}">
+                                            @foreach($dropping_points as $dp)
+                                                <option class="form-control" value="{{ $dp->point }} - {{ $dp->point_price }}">
+                                                {{ $dp->point }} - Rs. {{ $dp->point_price }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 @if(backpack_user())
@@ -52,15 +71,19 @@
 
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#boarding_point_{{$data->id}}" aria-expanded="false" aria-controls="boarding_point_{{$data->id}}"><i class="la la-map-marker"></i> Boarding Point</button>
-                                        <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#dropping_point_{{$data->id}}" aria-expanded="false" aria-controls="dropping_point_{{$data->id}}"><i class="la la-map-marker"></i> Dropping Point</button>
+                                        {{-- <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#boarding_point_{{$data->id}}" aria-expanded="false" aria-controls="boarding_point_{{$data->id}}"><i class="la la-map-marker"></i> Boarding Point</button>
+                                        <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#dropping_point_{{$data->id}}" aria-expanded="false" aria-controls="dropping_point_{{$data->id}}"><i class="la la-map-marker"></i> Dropping Point</button> --}}
                                         <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#booking_policy_{{$data->id}}" aria-expanded="false" aria-controls="booking_policy_{{$data->id}}"><i class="la la-percentage"></i> Booking Policy</button>
                                         <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#amenities_{{$data->id}}" aria-expanded="false" aria-controls="amenities_{{$data->id}}"><i class="la la-clipboard-list"></i> Amenities</button>
+                                        &nbsp;
+                                        <img src="{{ asset('images/avaliable.png') }}" alt="Avaliable"> Avaliable &nbsp;
+                                        <img src="{{ asset('images/selected.png') }}" alt="Avaliable"> Selected &nbsp; 
+                                        <img src="{{ asset('images/booked.png') }}" alt="Avaliable"> Booked &nbsp; 
                                     </div>
                                 </div>
 
-                                <!-- boarding point -->
-                                <div class="collapse collapse_2 indent mt-2" id="boarding_point_{{$data->id}}">
+                               {{-- <!-- boarding point -->
+                                <div class="collapse collapse_2 mt-2" id="boarding_point_{{$data->id}}">
                                     <h6>Boarding Points</h6>
                                     @if ($dropping_points[0]->point == '')
                                         No records found.
@@ -70,7 +93,6 @@
                                                 <tr>
                                                     <th>Point</th>
                                                     <th>Time</th>
-                                                    <th>Price</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -78,16 +100,14 @@
                                                     <tr>
                                                         <td>{{ $boarding_point->point }}</td>
                                                         <td>{{ date_format(date_create($boarding_point->time), 'h:i A') }}</td>
-                                                        <td>Rs. {{ $boarding_point->point_price }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     @endif
                                 </div>
-
                                 <!-- dropping point -->
-                                <div class="collapse collapse_2 indent mt-2" id="dropping_point_{{$data->id}}">
+                                <div class="collapse collapse_2 mt-2" id="dropping_point_{{$data->id}}">
                                     <h6>Dropping Points</h6>
                                     @if ($dropping_points[0]->point == '')
                                         No records found.
@@ -109,10 +129,10 @@
                                             </tbody>
                                         </table>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <!-- booking policy -->
-                                <div class="collapse collapse_2 indent mt-2" id="booking_policy_{{$data->id}}">
+                                <div class="collapse collapse_2 mt-2" id="booking_policy_{{$data->id}}">
                                     <h6>Booking Policy</h6>
                                     @if ($booking_policies[0]->policy == '')
                                             No records found.
@@ -137,7 +157,7 @@
                                 </div>
 
                                 <!-- amenities -->
-                                <div class="collapse collapse_2 indent text-break" id="amenities_{{$data->id}}">
+                                <div class="collapse collapse_2 text-break" id="amenities_{{$data->id}}">
                                     <h6>Amenities</h6>
                                     @if ($amenities[0]->name == '')
                                         No records found.
@@ -148,35 +168,31 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 card-seats">
                                 @if($data->vehicle_id == 2)
-                                <div class="card border-success" style="max-width: 42%;">
-                                    <div class="row">
-                                        <div class="col-md-12 mt-2">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="row bg-danger" id="driver_side_{{$data->id}}"></div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <img src="{{ asset('images/driver.png') }}" alt="Driver" class="float-right bg-success" height="50px"> 
-                                                </div>
+                                    <div class="card border-success mt-1 p-1" id="seat-card">
+                                        <div class="w-100 d-flex">
+                                            <div class="w-50" id="driver_side_{{$data->id}}"></div>
+                                            <div class="w-50">
+                                                <img src="{{ asset('images/driver.png') }}" alt="Driver" class="driver-image" height="50px"> 
                                             </div>
                                         </div>
-                                        <div class="col-md-12 m-2"></div>
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-5" style="align-self: end;">
-                                                    <div class="row left bg-secondary"></div>
-                                                </div>
-                                                <div class="col-md-2"></div>
-                                                <div class="col-md-5" style="align-self: end;">
-                                                    <div class="row right bg-dark"></div>
-                                                </div>
+                                        <div class="m-3"></div>
+                                        <div class="w-100 d-flex">
+                                            <div class="w-40" style="align-self: end;">
+                                                <div id="left_{{$data->id}}"></div>
                                             </div>
-                                            <div class="row justify-content-between last_row bg-primary"></div>
+                                            <div class="w-20">
+                                                <div class="text-white">asdf</div>
+                                            </div>
+                                            <div class="w-40" style="align-self: end;">
+                                                <div id="right_{{$data->id}}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="w-100">
+                                            <div id="last_row_{{$data->id}}"></div>
                                         </div>
                                     </div>
-                                </div>
                                 @endif
                             </div>
                         </div>
@@ -188,9 +204,48 @@
 @else
     <div class="text-danger text-center fs-2 font-weight-bold">No records can be found !!</div>
 @endif
+
 <style>
+    label{
+        font-weight: bold;
+    }
     .accordion-button::after{
         content: none;
+    }
+    .driver-image{
+        float: right;
+    }
+    @media only screen and (max-width: 400px) {
+        #seat-card {
+            max-width: 66% !important;
+            transform: rotate(0deg) !important;
+        }
+        .card-seats{
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+    }
+    .card-seats{
+        margin-top: -150px;
+        margin-bottom: -154px;
+    }
+    #seat-card{
+        max-width:54%;
+        transform: rotate(270deg);
+    }
+    .seat-pointer{
+        cursor: pointer;
+    }
+    .seat-no{
+        cursor: pointer;
+        margin-left: -31px;
+        font-size: 13px;
+        margin-right: 8px;
+        color:white;
+        font-weight: bold;
+    }
+    .collapse_2{
+        width: 55%;
     }
 </style>
 
@@ -204,16 +259,72 @@
         });
     });
 
-    function loadSeat(id,driver_side,last_row){
-        console.log(id, '-',driver_side, '-',last_row);
-        for(let i = 1; i <= driver_side ; i++) {
-            $('#driver_side_'+id).append('<div><a href="javascript:;"><img src="{{ asset("images/avaliable.png") }}"/></a></div>');
-        }
-        // for(let i = 1; i <= last_row ; i++) {
-        //     $('.last_row').append('<div><a href="javascript:;"><img src="{{ asset("images/avaliable.png") }}"/></a></div>');
-        // }
+    function clearSeat(id){
+        $('#driver_side_'+id).empty();
+        $('#last_row_'+id).empty();
+        $('#left_'+id).empty();
+        $('#right_'+id).empty();
     }
 
-    function loadMiddleSeat(right_row, right_column, left_row, left_column,id){
+    function loadSeat(id,driver_side,last_row,right_row, right_column, left_row, left_column){
+        for(let i = 1; i <= driver_side ; i++) {
+            seat_value = 'A0'+i;
+            $('#driver_side_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+        }
+   
+        for(let i = 1; i <= last_row ; i++) {
+            if(i <= 9){
+                seat_value = 'D0' + i;
+            }else{
+                seat_value = 'D'+i;
+            }
+            $('#last_row_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+        }
+
+        left = left_row * left_column;
+        for(let i = 1; i <= left ; i++) {
+            if(i <= 9){
+                seat_value = 'B0' + i;
+            }else{
+                seat_value = 'B'+i;
+            }
+            $('#left_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+        }
+
+        right = right_row * right_column;
+        for(let i = 1; i <= right ; i++) {
+            if(i <= 9){
+                seat_value = 'C0' + i;
+            }else{
+                seat_value = 'C'+i;
+            }
+            $('#right_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this)"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+        }
+    }
+
+    let selected_seat = '';
+    let seat_count = 0;
+
+    function changeImage(item, id){
+        var item_id = $(item).attr("id");
+        var image_src = $('#img_'+item_id).attr('src');
+        var dropping_point = $('#dropping_point_'+id).val();
+        var value = $(item).attr("data-value");
+
+        if(image_src == "{{asset('images/avaliable.png')}}"){
+            seat_count = seat_count + 1;
+            $('#img_'+item_id).attr("src", "{{asset('images/selected.png')}}");
+
+            selected_seat = selected_seat + ' ' + value;
+            $('#seat_number_'+id).val(selected_seat);
+        }
+
+        if(image_src == "{{asset('images/selected.png')}}"){
+            seat_count = seat_count - 1;
+            $('#img_'+item_id).attr("src", "{{asset('images/avaliable.png')}}");
+
+            seat_selected_value = $('#seat_number_'+id).val().replace(value, '');
+            $('#seat_number_'+id).val(seat_selected_value);
+        }
     }
 </script>
