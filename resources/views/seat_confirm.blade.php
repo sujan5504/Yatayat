@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="col-md-2 form-group">
                                                 <label for="date">Date</label>
-                                                <input type="text" name="date" id="date" value="{{ $data['date'] }}" class="form-control" readonly>
+                                                <input type="text" name="date" id="seat_date" value="{{ $data['date'] }}" class="form-control" readonly>
                                             </div>
                                             <div class="col-md-2 form-group">
                                                 <label for="time">Time</label>
@@ -120,7 +120,7 @@
                                                 <input type="text" name="total_cost" id="total_seat_cost" class="form-control" readonly>
                                             </div>
                                     </div>
-                                    <button type="submit" class="btn btn-md btn-success mt-2">Proceed To Payment</button>
+                                    <button class="btn btn-md btn-success mt-2" onclick="saveBookingDetails()">Proceed To Payment</button>
                                 </div>
                             </div>
                         </div>
@@ -242,9 +242,32 @@
         }
 
         function saveBookingDetails(){
-            data = {
-
+            let data = {
+                '_token' : $("meta[name='csrf-token']").attr("content"),
+                user_id : <?= $data['user_id'] ?>,
+                client_id : <?= $data['client_id'] ?>,
+                vehicle_seat_id : <?= $data['vehicle_seat_id'] ?>,  
+                seat : "<?= $data['seat_number'] ?>",
+                boarding_point : $('#vehicle_boarding_point').val(),
+                droppint_point: $('#vehicle_dropping_point').val(),
+                cost : $('#total_seat_cost').val(),
+                date : $('#seat_date').val(),
+                ticket_number : getRandomString(),
+                time : $('#departure_time').val(),
+                name : $('#user_name').val(),
+                contact : $('#user_contact').val(),
+                email : $('#user_email').val(),
             };
+            console.log(data);
+        }
+
+        function getRandomString() {
+            var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            var random_string = '';
+            for ( var i = 0; i < 6; i++ ) {
+                random_string += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return random_string;
         }
     </script>
 @endsection

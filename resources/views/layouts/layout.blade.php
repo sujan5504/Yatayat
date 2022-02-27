@@ -21,6 +21,7 @@
     <script src="{{ asset('js/nepali.datepicker.v2.2.min.js') }}"></script>
     <script src="{{ asset('js/dependentDropdown.js') }}"></script>
     <script src="{{ asset('packages/noty/noty.min.js') }}"></script>
+    <script src="{{ asset('packages/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     @yield('styles')
     <style>
