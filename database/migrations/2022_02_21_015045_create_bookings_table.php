@@ -18,12 +18,14 @@ class CreateBookingsTable extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id')->nullable();
+            $table->string('ticket_number',250);
             $table->unsignedBigInteger('vehicle_seat_id');
             $table->string('seat');
             $table->string('bording_point');
             $table->string('droppint_point');
             $table->integer('cost');
             $table->string('date');
+            $table->string('time');
             $table->boolean('status')->default(0);
 
             $table->timestamps();

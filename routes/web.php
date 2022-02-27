@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Admin\VehicleHireController;
 use App\Http\Controllers\Api\VehicleTypeVehicleDetail;
@@ -50,6 +51,9 @@ Route::group([
 
 Route::get('/', [HomeController::class, 'index']);
 Route::post('/getvehicleseatdetails', [HomeController::class, 'getVehicleSeatDetails']);
+Route::post('/bookseat', [BookingController::class, 'getSelectedSeatDetails']);
+Route::post('/savebooking', [BookingController::class, 'store']);
+
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('vehiclehire', VehicleHireController::class);
 Route::get('aboutus',function(){

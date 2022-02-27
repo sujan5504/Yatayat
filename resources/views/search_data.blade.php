@@ -1,8 +1,6 @@
 @if($datas)
     @foreach($datas as $data)
         @php 
-            $boarding_points = json_decode($data->boarding_point);
-            $dropping_points = json_decode($data->dropping_point);
             $booking_policies = json_decode($data->booking_policy);
             $amenities = json_decode($data->amenities);
 
@@ -13,14 +11,16 @@
             $left_row = $data->left_row;
             $left_column = $data->left_column;
             $id = $data->id;
+            $user_id = backpack_user() != null ? backpack_user()->id : null;
         @endphp
+        
         <div class="accordion" id="accordion_search">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading_{{$data->id}}">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
                             aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="clearSeat('<?= $id ?>');
                             loadSeat('<?= $id ?>','<?= $driver_side ?>', '<?= $last_row ?>','<?= $right_row ?>',
-                                '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->id ?>');">
+                                '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->price ?>');">
                         <div class="row w-100">
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->client_name }}</div>
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
@@ -35,44 +35,32 @@
                         <div class="row" id="details">
                             <div class="col-md-8">
                                 <h4>{{ $data->from_name}} to {{ $data->to_name}}</h4>
-                                <div class="row">
-                                    <div class="col-md-5 form-group">
-                                        <label for="seat_number">Seat Number <span class="text-danger">*</span></label>
-                                        <input type="text" name="seat_number" id="seat_number_{{$data->id}}" class="form-control" readonly required>
+                                
+                                <form action="{{ url('bookseat') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                    <input type="hidden" name="total_seat" id="total_seat">
+                                    <input type="hidden" name="client_id" value="{{ $data->client_id }}">
+                                    <input type="hidden" name="vehicle_seat_id" value="{{ $data->id }}">
+                                    <div class="row">
+                                        <div class="col-md-5 form-group">
+                                            <label for="seat_number">Seat Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="seat_number" id="seat_number_{{$data->id}}" class="form-control" readonly required>
+                                        </div>
+                                        <div class="col-md-5 form-group">
+                                            <label for="total_price">Total Price <span class="text-danger">*</span></label>
+                                            <input type="text" name="total_price" id="total_price_{{$data->id}}" class="form-control" readonly required>
+                                        </div>
                                     </div>
-                                    <div class="col-md-5 form-group">
-                                        <label for="total_price">Total Price <span class="text-danger">*</span></label>
-                                        <input type="text" name="total_price" id="total_price_{{$data->id}}" class="form-control" readonly required>
-                                    </div>
-                                    <div class="col-md-5 form-group">
-                                        <label for="boarding_point">Boarding Point (Point - Time)</label>
-                                        <select class="form-control" name="boarding_point" id="boarding_point_{{$data->id}}">
-                                            @foreach($boarding_points as $bp)
-                                                <option class="form-control" value="{{ $bp->point }} - {{date_format(date_create($bp->time), 'h:i A')}}">
-                                                {{ $bp->point }} - {{date_format(date_create($bp->time), 'h:i A')}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5 form-group">
-                                        <label for="dropping_point">Dropping Point (Point - Price)</label>
-                                        <select class="form-control" name="dropping_point" id="dropping_point_{{$data->id}}">
-                                            @foreach($dropping_points as $dp)
-                                                <option class="form-control" value="{{ $dp->point }} - {{ $dp->point_price }}">
-                                                {{ $dp->point }} - Rs. {{ $dp->point_price }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @if(backpack_user())
-                                    <button type="button" class="btn btn-md btn-primary mt-2">Continue Booking</button>
-                                @else
-                                    <span class="text-danger">Login first to proceed with the booking !!</span>
-                                @endif
+                                    @if(backpack_user())
+                                        <button type="submit" class="btn btn-md btn-primary mt-2">Continue Booking</button>
+                                    @else
+                                        <span class="text-danger">Login first to proceed with the booking !!</span>
+                                    @endif
+                                </form>
 
                                 <div class="row mt-2">
                                     <div class="col">
-                                        {{-- <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#boarding_point_{{$data->id}}" aria-expanded="false" aria-controls="boarding_point_{{$data->id}}"><i class="la la-map-marker"></i> Boarding Point</button>
-                                        <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#dropping_point_{{$data->id}}" aria-expanded="false" aria-controls="dropping_point_{{$data->id}}"><i class="la la-map-marker"></i> Dropping Point</button> --}}
                                         <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#booking_policy_{{$data->id}}" aria-expanded="false" aria-controls="booking_policy_{{$data->id}}"><i class="la la-percentage"></i> Booking Policy</button>
                                         <button type="button" class="btn btn-sm btn-secondary to_collapse" data-bs-toggle="collapse" data-bs-target="#amenities_{{$data->id}}" aria-expanded="false" aria-controls="amenities_{{$data->id}}"><i class="la la-clipboard-list"></i> Amenities</button>
                                         &nbsp;
@@ -81,55 +69,6 @@
                                         <img src="{{ asset('images/booked.png') }}" alt="Avaliable"> Booked &nbsp; 
                                     </div>
                                 </div>
-
-                               {{-- <!-- boarding point -->
-                                <div class="collapse collapse_2 mt-2" id="boarding_point_{{$data->id}}">
-                                    <h6>Boarding Points</h6>
-                                    @if ($dropping_points[0]->point == '')
-                                        No records found.
-                                    @else
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Point</th>
-                                                    <th>Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($boarding_points as $boarding_point)
-                                                    <tr>
-                                                        <td>{{ $boarding_point->point }}</td>
-                                                        <td>{{ date_format(date_create($boarding_point->time), 'h:i A') }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    @endif
-                                </div>
-                                <!-- dropping point -->
-                                <div class="collapse collapse_2 mt-2" id="dropping_point_{{$data->id}}">
-                                    <h6>Dropping Points</h6>
-                                    @if ($dropping_points[0]->point == '')
-                                        No records found.
-                                    @else
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Point</th>
-                                                    <th>Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($dropping_points as $dropping_point)
-                                                    <tr>
-                                                        <td>{{ $dropping_point->point }}</td>
-                                                        <td>Rs. {{ $dropping_point->point_price }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    @endif
-                                </div> --}}
 
                                 <!-- booking policy -->
                                 <div class="collapse collapse_2 mt-2" id="booking_policy_{{$data->id}}">
@@ -266,19 +205,10 @@
         $('#right_'+id).empty();
     }
 
-    function loadSeat(id,driver_side,last_row,right_row, right_column, left_row, left_column){
+    function loadSeat(id, driver_side, last_row, right_row, right_column, left_row, left_column, price){
         for(let i = 1; i <= driver_side ; i++) {
             seat_value = 'A0'+i;
-            $('#driver_side_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
-        }
-   
-        for(let i = 1; i <= last_row ; i++) {
-            if(i <= 9){
-                seat_value = 'D0' + i;
-            }else{
-                seat_value = 'D'+i;
-            }
-            $('#last_row_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+            $('#driver_side_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
         }
 
         left = left_row * left_column;
@@ -288,7 +218,7 @@
             }else{
                 seat_value = 'B'+i;
             }
-            $('#left_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+            $('#left_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
         }
 
         right = right_row * right_column;
@@ -298,14 +228,24 @@
             }else{
                 seat_value = 'C'+i;
             }
-            $('#right_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this)"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+            $('#right_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
+        }
+
+        for(let i = 1; i <= last_row ; i++) {
+            if(i <= 9){
+                seat_value = 'D0' + i;
+            }else{
+                seat_value = 'D'+i;
+            }
+            $('#last_row_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
         }
     }
 
     let selected_seat = '';
     let seat_count = 0;
+    let seat_price = 0;
 
-    function changeImage(item, id){
+    function changeImage(item, id, price){
         var item_id = $(item).attr("id");
         var image_src = $('#img_'+item_id).attr('src');
         var dropping_point = $('#dropping_point_'+id).val();
@@ -317,14 +257,22 @@
 
             selected_seat = selected_seat + ' ' + value;
             $('#seat_number_'+id).val(selected_seat);
+
+            seat_price = seat_count * price;
+            $('#total_price_'+id).val(seat_price);
+            $('#total_seat').val(seat_count);
         }
 
         if(image_src == "{{asset('images/selected.png')}}"){
             seat_count = seat_count - 1;
             $('#img_'+item_id).attr("src", "{{asset('images/avaliable.png')}}");
 
-            seat_selected_value = $('#seat_number_'+id).val().replace(value, '');
-            $('#seat_number_'+id).val(seat_selected_value);
+            selected_seat = $('#seat_number_'+id).val().replace(' '+value, '');
+            $('#seat_number_'+id).val(selected_seat);
+
+            seat_price = seat_count * price;
+            $('#total_price_'+id).val(seat_price);
+            $('#total_seat').val(seat_count);
         }
     }
 </script>

@@ -9,81 +9,10 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {        
         $places = Destination::all();
         return view('index',compact('places'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function getVehicleSeatDetails(Request $request){
@@ -93,7 +22,7 @@ class HomeController extends Controller
         $to_id = $request->to_id;
         
         $sql = "SELECT vs.id,vs.vehicle_id,vs.departure_date,vs.departure_time,vs.price,vs.boarding_point,vs.dropping_point,booking_policy,
-                c.NAME AS client_name,vt.NAME AS vehicle_type,vt.last_row,vt.right_row,vt.right_column,vt.left_row,vt.left_column,
+                c.id as client_id, c.NAME AS client_name,vt.NAME AS vehicle_type,vt.last_row,vt.right_row,vt.right_column,vt.left_row,vt.left_column,
                 vt.driver_side,vt.total_no_of_seat,vd.vehicle_number,vd.amenities,d.name AS from_name,de.name AS to_name,
                 e.full_name as driver_name,em.full_name as conductor_name
                 FROM vehicle_seats AS vs
