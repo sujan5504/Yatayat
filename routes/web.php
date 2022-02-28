@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\UserProfileController;
@@ -59,3 +60,5 @@ Route::resource('vehiclehire', VehicleHireController::class);
 Route::get('aboutus',function(){
     return view('aboutus');
 });
+
+Route::get('sendemail', [MailController::class, 'sendEmail']);
