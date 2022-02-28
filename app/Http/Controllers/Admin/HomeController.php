@@ -21,11 +21,11 @@ class HomeController extends Controller
         $from_id = $request->from_id;
         $to_id = $request->to_id;
         
-        $sql = "SELECT vs.id,vs.vehicle_id,vs.departure_date,vs.departure_time,vs.price,vs.boarding_point,vs.dropping_point,booking_policy,
+        $sql = "SELECT vs.id,vs.vehicle_id,vs.departure_date,vs.departure_time,vs.price,vs.boarding_point,vs.dropping_point,bp.booking_policy ,
                 c.id as client_id, c.NAME AS client_name,vt.NAME AS vehicle_type,vt.last_row,vt.right_row,vt.right_column,vt.left_row,vt.left_column,
                 vt.driver_side,vt.total_no_of_seat,vd.vehicle_number,vd.amenities,d.name AS from_name,de.name AS to_name,
                 e.full_name as driver_name,em.full_name as conductor_name
-                FROM vehicle_seats AS vs
+                FROM vehicles_assign AS vs
                     LEFT JOIN clients AS c ON c.id = vs.client_id
                     LEFT JOIN vehicle_types AS vt ON vt.id = vs.vehicle_type_id
                     LEFT JOIN vehicle_details AS vd ON vd.id = vs.vehicle_detail_id
@@ -33,7 +33,7 @@ class HomeController extends Controller
                     LEFT JOIN destinations AS de ON de.id = vs.to_id
                     LEFT JOIN employees as e on e.id = vs.driver_employee_id
 	                LEFT JOIN employees as em on em.id = vs.conductor_employee_id
-                    INNER JOIN (SELECT bp.booking_policy FROM booking_policies AS bp ORDER BY bp.updated_at DESC LIMIT 1) AS booking_policy
+                    LEFT JOIN (SELECT booking_policy, client_id FROM booking_policies ORDER BY updated_at DESC LIMIT 1 ) AS bp on bp.client_id = c.id
                 ";
         $wheres[] = 'WHERE vs.client_id IS NOT NULL';
 

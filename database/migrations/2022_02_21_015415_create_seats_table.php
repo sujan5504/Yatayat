@@ -16,12 +16,12 @@ class CreateSeatsTable extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('vehicle_seat_id');
+            $table->unsignedBigInteger('vehicles_assign_id');
             $table->string('seat');
 
             $table->timestamps();
 
-            $table->foreign('vehicle_seat_id')->references('id')->on('vehicle_seats');
+            $table->foreign('vehicles_assign_id')->references('id')->on('vehicles_assign');
         });
     }
 

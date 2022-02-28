@@ -11,5 +11,5 @@ class Seat extends Model
 
     protected $table = 'seats';
     protected $guarder = ['id'];
-    protected $fillable = ['vehicle_seat_id','seat'];
+    protected $fillable = ['vehicles_assign_id','seat'];
 }

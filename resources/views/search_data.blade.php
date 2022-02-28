@@ -41,7 +41,7 @@
                                     <input type="hidden" name="user_id" value="{{ $user_id }}">
                                     <input type="hidden" name="total_seat" id="total_seat">
                                     <input type="hidden" name="client_id" value="{{ $data->client_id }}">
-                                    <input type="hidden" name="vehicle_seat_id" value="{{ $data->id }}">
+                                    <input type="hidden" name="vehicles_assign_id" value="{{ $data->id }}">
                                     <div class="row">
                                         <div class="col-md-5 form-group">
                                             <label for="seat_number">Seat Number <span class="text-danger">*</span></label>

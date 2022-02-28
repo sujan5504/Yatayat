@@ -243,10 +243,10 @@
 
         function saveBookingDetails(){
             let data = {
-                '_token' : $("meta[name='csrf-token']").attr("content"),
+                _token : $("meta[name='csrf-token']").attr("content"),
                 user_id : <?= $data['user_id'] ?>,
                 client_id : <?= $data['client_id'] ?>,
-                vehicle_seat_id : <?= $data['vehicle_seat_id'] ?>,  
+                vehicles_assign_id : <?= $data['vehicles_assign_id'] ?>,  
                 seat : "<?= $data['seat_number'] ?>",
                 boarding_point : $('#vehicle_boarding_point').val(),
                 droppint_point: $('#vehicle_dropping_point').val(),
@@ -258,7 +258,13 @@
                 contact : $('#user_contact').val(),
                 email : $('#user_email').val(),
             };
-            console.log(data);
+
+            $.ajax({
+                type:"post",
+                url: 'savebooking',
+                data: data,
+                success:function(response) {}
+            });
         }
 
         function getRandomString() {

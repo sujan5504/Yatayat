@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VehicleSeatRequest extends FormRequest
+class VehiclesAssignRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -19,7 +19,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id')->nullable();
             $table->string('ticket_number',250);
-            $table->unsignedBigInteger('vehicle_seat_id');
+            $table->unsignedBigInteger('vehicles_assign_id');
             $table->string('seat');
             $table->string('bording_point');
             $table->string('droppint_point');
@@ -32,7 +32,7 @@ class CreateBookingsTable extends Migration
 
             $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('vehicle_seat_id')->references('id')->on('vehicle_seats');
+            $table->foreign('vehicles_assign_id')->references('id')->on('vehicles_assign');
         });
     }
 

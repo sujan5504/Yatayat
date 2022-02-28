@@ -11,7 +11,7 @@ use App\Models\VehicleDetails;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
-class VehicleSeat extends Model
+class VehiclesAssign extends Model
 {
     use CrudTrait;
 
@@ -21,7 +21,7 @@ class VehicleSeat extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'vehicle_seats';
+    protected $table = 'vehicles_assign';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    $('.driver_license_info').hide();
     var val = $('select[name=employee_type_id]').val();
     if(val == 1){
         $('.driver_license_info').show();

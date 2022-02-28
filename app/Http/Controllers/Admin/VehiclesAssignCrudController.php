@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Vehicle;
 use App\Models\Employee;
 use App\Models\Destination;
-use App\Models\VehicleSeat;
+use App\Models\VehiclesAssign;
 use App\Models\VehicleType;
 use App\Models\VehicleDetails;
 use App\Base\BaseCrudController;
-use App\Http\Requests\VehicleSeatRequest;
+use App\Http\Requests\VehiclesAssignRequest;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-class VehicleSeatCrudController extends BaseCrudController
+class VehiclesAssignCrudController extends BaseCrudController
 {
     public function setup()
     {
-        CRUD::setModel(VehicleSeat::class);
+        CRUD::setModel(VehiclesAssign::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/vehicleassign');
         CRUD::setEntityNameStrings('Vehicle Assign', 'Vehicle Assign');
     }
@@ -96,7 +96,7 @@ class VehicleSeatCrudController extends BaseCrudController
 
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VehicleSeatRequest::class);
+        CRUD::setValidation(VehiclesAssignRequest::class);
 
         $arr = [
             $this->addClientIdField(),

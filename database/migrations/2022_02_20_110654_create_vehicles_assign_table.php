@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVehicleSeatsTable extends Migration
+class CreateVehiclesAssignTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVehicleSeatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_seats', function (Blueprint $table) {
+        Schema::create('vehicles_assign', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('client_id');
@@ -50,6 +50,6 @@ class CreateVehicleSeatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle_seats');
+        Schema::dropIfExists('vehicles_assign');
     }
 }
