@@ -83,6 +83,42 @@ class BookingController extends Controller
     }
 
     public function bookingTicketDetails($id){
-        dd($id);
+        $data = DB::select('
+            SELECT
+                b.id as booking_id,
+                b.name,
+                b.contact,
+                b.email,
+                b.ticket_number,
+                b.boarding_point,
+                b.dropping_point,
+                b.cost,
+                b.date,
+                b.time,
+                d.name	AS from_name,
+                de.name AS to_name,
+                c.NAME AS client_name,
+                c.address AS client_address,
+                c.contact AS client_contact, 
+                vs.vehicle_number,
+                va.departure_time,
+                va.departure_date,
+                va.price
+            FROM
+                bookings AS b
+                LEFT JOIN vehicles_assign AS va ON va.id = b.vehicles_assign_id
+                LEFT JOIN destinations AS d ON d.id = va.from_id
+                LEFT JOIN destinations AS de ON de.id = va.to_id
+                LEFT JOIN clients AS c ON c.id = b.client_id
+                LEFT JOIN vehicle_details AS vs ON vs.id = va.vehicle_detail_id 
+            WHERE
+                b.id ='.$id.'');
+        $seat_numbers = Seat::select('seat')->where('booking_id',$data[0]->booking_id)->get();
+        $seat = '';
+        foreach($seat_numbers as $seat_number){
+            $seat .= ' ' . $seat_number->seat;
+        }
+
+        return view('booking_ticket', compact('data','seat'));
     }
 }

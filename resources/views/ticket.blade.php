@@ -28,13 +28,13 @@
             <span><strong>Boarding Point:</strong> {{ $boarding_point }} ({{ $time }})</span>
         </div>
         <div class="col-md-12">
-            <span><strong>Dropping Point:</strong> {{ $dropping_point }} (Rs. 500)</span>
+            <span><strong>Dropping Point:</strong> {{ $dropping_point }} (Rs. {{ $price }})</span>
         </div>
         <div class="col-md-12">
             <span><strong>Seat No.:</strong> {{ $seat }}</span>
         </div>
         <div class="col-md-12">
-            <span><strong>Fare:</strong> Rs.{{ $cost }}</span>
+            <span><strong>Total Fare:</strong> Rs.{{ $cost }}</span>
         </div>
     </div>
 </html>
