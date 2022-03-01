@@ -1,9 +1,7 @@
+@extends('layouts.layout')
 
-<html>
-    <head>
-        <title>Yatayat</title>
-    </head>
-    <div style="max-width:400px; margin:50px; padding:8px; border:solid black">
+@section('content')
+<div style="max-width:400px; margin:50px; padding:8px; border:solid black">
         <div style="text-align:center">
             <span style="font-weight:bold">{{ $client_name }}</span> <br>
             <span style="font-weight:bold">{{ $client_address }}</span> <br>
@@ -37,4 +35,4 @@
             <span><strong>Fare:</strong> Rs.{{ $cost }}</span>
         </div>
     </div>
-</html>
+@endsection

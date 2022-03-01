@@ -30,6 +30,10 @@ class ClientCrudController extends BaseCrudController
                 'name' => 'contact',
                 'label' => trans('client.contact'),
             ],
+            [
+                'name' => 'address',
+                'label' => trans('client.address'),
+            ],
             $this->addIsActiveColumn(),
         ];
         $this->crud->addColumns($cols);
@@ -53,6 +57,14 @@ class ClientCrudController extends BaseCrudController
                 'name' => 'contact',
                 'type' => 'text',
                 'label' => trans('client.contact'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-4',
+                ],
+            ],
+            [
+                'name' => 'address',
+                'type' => 'text',
+                'label' => trans('client.address'),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-4',
                 ],

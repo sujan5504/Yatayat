@@ -38,6 +38,7 @@ class BookingController extends Controller
             foreach($seats as $seat){
                 Seat::create([
                     'booking_id' => $booking->id,
+                    'vehicles_assign_id' => $request->vehicles_assign_id,
                     'seat' => $seat,
                 ]);
             }
@@ -79,5 +80,9 @@ class BookingController extends Controller
         ];
 
         return view('seat_confirm', compact('data'));
+    }
+
+    public function bookingTicketDetails($id){
+        dd($id);
     }
 }

@@ -4,5 +4,6 @@ return[
     'name' => 'Name',
     'email' => 'Email',
     'contact' => 'Contact No.',
+    'address' => 'Address',
     'is_active' => 'Is Active?',
 ];

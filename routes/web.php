@@ -54,6 +54,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::post('/getvehicleseatdetails', [HomeController::class, 'getVehicleSeatDetails']);
 Route::post('/bookseat', [BookingController::class, 'getSelectedSeatDetails']);
 Route::post('/savebooking', [BookingController::class, 'store']);
+Route::get('/bookingticket/{id}', [BookingController::class, 'bookingTicketDetails'])->name('bookingticket');
 
 Route::resource('userprofile', UserProfileController::class);
 Route::resource('vehiclehire', VehicleHireController::class);

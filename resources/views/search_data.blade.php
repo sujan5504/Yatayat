@@ -189,6 +189,10 @@
 </style>
 
 <script>
+    let selected_seat = '';
+    let seat_count = 0;
+    let seat_price = 0;
+
     $(document).ready(function () {
         $('.to_collapse').on('click',function(){
             $('.collapse_2').collapse('hide');
@@ -199,6 +203,7 @@
     });
 
     function clearSeat(id){
+        selected_seat = '';
         $('#driver_side_'+id).empty();
         $('#last_row_'+id).empty();
         $('#left_'+id).empty();
@@ -240,10 +245,6 @@
             $('#last_row_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
         }
     }
-
-    let selected_seat = '';
-    let seat_count = 0;
-    let seat_price = 0;
 
     function changeImage(item, id, price){
         var item_id = $(item).attr("id");

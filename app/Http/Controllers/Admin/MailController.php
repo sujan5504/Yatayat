@@ -14,7 +14,7 @@ class MailController extends Controller
 {
     public function sendEmail(Request $request){
         $vehicle_assign_data = DB::select('SELECT d.name AS from_name,de.name AS to_name, c.name AS client_name, c.contact AS client_contact, 
-                                            va.departure_time, vd.vehicle_number
+                                            c.address as client_address,va.departure_time, vd.vehicle_number
                                             FROM vehicles_assign as va 
                                             LEFT JOIN destinations AS d ON d.id = va.from_id
                                             LEFT JOIN destinations AS de ON de.id = va.to_id
@@ -44,6 +44,7 @@ class MailController extends Controller
         $data['to'] = $vehicle_assign_data[0]->to_name;
         $data['client_name'] = $vehicle_assign_data[0]->client_name;
         $data['client_contact'] = $vehicle_assign_data[0]->client_contact;
+        $data['client_address'] = $vehicle_assign_data[0]->client_address;
         $data['departure_time'] = $vehicle_assign_data[0]->departure_time;
         $data['vehicle_number'] = $vehicle_assign_data[0]->vehicle_number;
         $data['seat'] = $seat;
@@ -56,10 +57,12 @@ class MailController extends Controller
                         ->subject($data['title'])
                         ->attachData($pdf->output(), 'Ticket.pdf');
             });
-            // dd('mail sent success');
+
+            $booking_id = $request->data['booking_id'];
+
+            return $booking_id;
         }catch(\Exception $e){
             dd($e);
         }
-
     }
 }

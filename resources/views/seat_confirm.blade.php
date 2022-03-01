@@ -55,7 +55,7 @@
                             </select>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-md btn-success mt-2" data-bs-toggle="modal" data-bs-target="#seatConfirmationModel"
+                    <button type="button" class="btn btn-md btn-success mt-2" id="proceed_button" data-bs-toggle="modal" data-bs-target="#seatConfirmationModel"
                         data-bs-whatever="@mdo"> Proceed For Conformation</button>
                 </div>
 
@@ -242,6 +242,15 @@
         }
 
         function saveBookingDetails(){
+            $('.modal').modal('hide');
+            swal({
+                title: "Please Wait!",
+                text: "Your ticket is being generated!",
+                icon: "success",
+                buttons: false,
+                closeOnClickOutside : false,
+            });
+            $('#proceed_button').prop('disabled', true);
             let data = {
                 _token : $("meta[name='csrf-token']").attr("content"),
                 user_id : <?= $data['user_id'] ?>,
@@ -280,8 +289,12 @@
                 url: 'sendemail',
                 headers: {"Authorization": localStorage.getItem('token')},
                 data: data,
+                success: function(response){
+                    window.location.href = 'bookingticket/'+ response;
+                }
             });
         }
+
         function getRandomString() {
             var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             var random_string = '';
