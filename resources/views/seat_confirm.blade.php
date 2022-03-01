@@ -105,7 +105,7 @@
                                                 <input type="text" name="boarding_point" id="vehicle_boarding_point" class="form-control" readonly>
                                             </div>
                                             <div class="col-md-4 form-group">
-                                                <label for="dropping_point">Droppint Point</label>
+                                                <label for="dropping_point">Dropping Point</label>
                                                 <input type="text" name="dropping_point" id="vehicle_dropping_point" class="form-control" readonly>
                                             </div>
                                     </div>
@@ -154,7 +154,7 @@
                         </div>
                         <div>
                             <strong>Dropping Point:</strong>
-                            <span id="droppint-point"></span>
+                            <span id="dropping-point"></span>
                         </div>
                     </div>
                     <div class="mt-2">
@@ -204,7 +204,7 @@
 
             dropping_point = $('#dropping_point').val();
             dropping_point = dropping_point.split('-');
-            $('#droppint-point').text(dropping_point[0]);
+            $('#dropping-point').text(dropping_point[0]);
             $('#vehicle_dropping_point').val(dropping_point[0]);
             $('#per-ticket-cost').text('Rs. '+dropping_point[1]);
 
@@ -233,7 +233,7 @@
         function changeDroppingPoint(){
             dropping_point = $('#dropping_point').val();
             dropping_point = dropping_point.split('-');
-            $('#droppint-point').text(dropping_point[0]);
+            $('#dropping-point').text(dropping_point[0]);
             $('#vehicle_dropping_point').val(dropping_point[0]);
             $('#per-ticket-cost').text('Rs. '+dropping_point[1]);
             total_price = total_seat * dropping_point[1];
@@ -249,7 +249,7 @@
                 vehicles_assign_id : <?= $data['vehicles_assign_id'] ?>,  
                 seat : "<?= $data['seat_number'] ?>",
                 boarding_point : $('#vehicle_boarding_point').val(),
-                droppint_point: $('#vehicle_dropping_point').val(),
+                dropping_point: $('#vehicle_dropping_point').val(),
                 cost : $('#total_seat_cost').val(),
                 date : $('#seat_date').val(),
                 ticket_number : getRandomString(),
@@ -260,13 +260,28 @@
             };
 
             $.ajax({
-                type:"post",
+                type: 'post',
                 url: 'savebooking',
                 data: data,
-                success:function(response) {}
+                success:function(response) {
+                    sendemail(response);
+                },
             });
         }
 
+        function sendemail(data){
+            data = {
+                data,
+                '_token' :$("meta[name='csrf-token']").attr("content"),
+            };
+
+            $.ajax({
+                type: 'get',
+                url: 'sendemail',
+                headers: {"Authorization": localStorage.getItem('token')},
+                data: data,
+            });
+        }
         function getRandomString() {
             var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             var random_string = '';

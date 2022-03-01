@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Seat;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Booking;
 use App\Models\Destination;
-use App\Models\VehiclesAssign;
 use Illuminate\Http\Request;
+use App\Models\VehiclesAssign;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -16,10 +17,13 @@ class BookingController extends Controller
     public function store(Request $request){
         DB::beginTransaction();
         try{   
-            Booking::create([
-                'ticket_number' => $request->ticket_number,
+            $data = [
                 'user_id' => $request->user_id,
+                'name' => $request->name,
+                'contact' => $request->contact,
+                'email' => $request->email,
                 'client_id' => $request->client_id,
+                'ticket_number' => $request->ticket_number,
                 'vehicles_assign_id' => $request->vehicles_assign_id,
                 'boarding_point' => $request->boarding_point,
                 'dropping_point' => $request->dropping_point,
@@ -27,11 +31,23 @@ class BookingController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'status' => false,
-            ]);
-            // DB::commit();
+            ];
+            $booking = Booking::create($data);
+
+            $seats = explode(' ', $request->seat);
+            foreach($seats as $seat){
+                Seat::create([
+                    'booking_id' => $booking->id,
+                    'seat' => $seat,
+                ]);
+            }
+            DB::commit();
+            $data += ['booking_id' => $booking->id];
+            return $data;
         }catch(\Throwable $th){
             dd($th);
             DB::rollback();
+            return 0;
         }
     }
 
