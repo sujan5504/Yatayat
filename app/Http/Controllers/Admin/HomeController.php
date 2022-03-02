@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Seat;
 use App\Models\Destination;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -56,7 +58,11 @@ class HomeController extends Controller
         $where_clause = implode(" ", $wheres);
         $sql .= $where_clause;
         $datas = DB::select($sql);
-
+        foreach($datas as $data){
+            $seat = Seat::where('vehicles_assign_id', $data->id)->pluck('seat');
+            $seat = $seat->implode(" ");
+            $data->seat = $seat;
+        }
         return view('search_data', compact('datas'));
     }
 }

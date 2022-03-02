@@ -20,7 +20,7 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
                             aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="clearSeat('<?= $id ?>');
                             loadSeat('<?= $id ?>','<?= $driver_side ?>', '<?= $last_row ?>','<?= $right_row ?>',
-                                '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->price ?>');">
+                                '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->price ?>','<?= $data->seat ?>');">
                         <div class="row w-100">
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->client_name }}</div>
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
@@ -210,7 +210,7 @@
         $('#right_'+id).empty();
     }
 
-    function loadSeat(id, driver_side, last_row, right_row, right_column, left_row, left_column, price){
+    function loadSeat(id, driver_side, last_row, right_row, right_column, left_row, left_column, price,seat){
         for(let i = 1; i <= driver_side ; i++) {
             seat_value = 'A0'+i;
             $('#driver_side_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
@@ -244,6 +244,12 @@
             }
             $('#last_row_'+id).append('<div class="d-inline seat-pointer" id="seat_'+id+'_'+seat_value+'" data-value="'+seat_value+'" onclick="changeImage(this,'+id+','+price+')"><img id="img_seat_'+id+'_'+seat_value+'" src="{{ asset("images/avaliable.png") }}"/><span class="seat-no">'+seat_value+'</span></div>');
         }
+
+        seats = seat.split(' ');
+        $.each( seats, function( index, value ){
+            $("#img_seat_"+id+"_"+value).attr("src", "{{asset('images/booked.png')}}");
+        });
+        
     }
 
     function changeImage(item, id, price){
