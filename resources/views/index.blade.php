@@ -25,7 +25,7 @@
                         <option value="4">Hiace</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2" id="booking_date_div">
                     <input type="text" class="form-control" id="booking_date" name="date" placeholder="Date" oninput="getVehicleSeatData()"></input>
                 </div>
                 <div class="col-md-3">
@@ -44,9 +44,9 @@
                         @endforeach
                     </select>
                 </div>
-                <!-- <div class="col-md-2">
-                    <button class="btn btn-md btn-danger" type="reset"><i class="la la-times"></i></button>
-                </div> -->
+                <div class="col-md-1" id="search_reset">
+                    <a href="{{ url('/')}}" class="btn btn-md btn-danger">Reset</a>
+                </div>
             </div>
         </div>
     </div>
@@ -165,12 +165,17 @@
             	}
             });
 
+            $("#booking_date_div").attr('class', 'col-md-3');
+
             $('#container-width').hide();
-            // getVehicleSeatData();
+            $('#search_reset').hide();
         });
 
         function getVehicleSeatData(){
             $('#container-width').show();
+            $('#search_reset').show();
+            $("#booking_date_div").attr('class', 'col-md-2');
+
             let data = {
                 vehicle_id: $('#vehicle_id').val(),
                 from_id : $('#from_id').val(),
@@ -180,16 +185,16 @@
             $('#vehicle_search_datas').html('<div class="text-center"><img src="{{ asset("images/loading.gif")}}"/></div>');
 
             $.ajax({
-            type: "POST",
-            url: "/getvehicleseatdetails",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            data: data,
-            success: function(response){
-                $('#vehicle_search_datas').html(response);
-            }
-        });
+                type: "POST",
+                url: "/getvehicleseatdetails",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: data,
+                success: function(response){
+                    $('#vehicle_search_datas').html(response);
+                }
+            });
         }
     </script>
 @endsection

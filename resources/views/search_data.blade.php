@@ -1,4 +1,4 @@
-@if($datas)
+@if($datas != [])
     @foreach($datas as $data)
         @php 
             $booking_policies = json_decode($data->booking_policy);
