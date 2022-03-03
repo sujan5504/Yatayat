@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Seat;
 use App\Models\Destination;
 use Illuminate\Support\Arr;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    private $today_date_bs;
     public function index()
     {        
         $places = Destination::all();
@@ -25,7 +27,7 @@ class HomeController extends Controller
         
         $sql = "SELECT vs.id,vs.vehicle_id,vs.departure_date,vs.departure_time,vs.price,vs.boarding_point,vs.dropping_point,bp.booking_policy ,
                 c.id as client_id, c.NAME AS client_name,vt.NAME AS vehicle_type,vt.last_row,vt.right_row,vt.right_column,vt.left_row,vt.left_column,
-                vt.driver_side,vt.total_no_of_seat,vd.vehicle_number,vd.amenities,d.name AS from_name,de.name AS to_name,
+                vt.driver_side,vt.total_no_of_seat,vt.total_no_of_seat,vd.vehicle_number,vd.amenities,d.name AS from_name,de.name AS to_name,
                 e.full_name as driver_name,em.full_name as conductor_name
                 FROM vehicles_assign AS vs
                     LEFT JOIN clients AS c ON c.id = vs.client_id

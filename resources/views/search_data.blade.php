@@ -12,6 +12,11 @@
             $left_column = $data->left_column;
             $id = $data->id;
             $user_id = backpack_user() != null ? backpack_user()->id : null;
+
+            $total_seat = $data->total_no_of_seat;
+            $seat = explode(' ', $data->seat);
+            $count = count($seat);
+            $avaliable_seat = $total_seat - $count;
         @endphp
         
         <div class="accordion" id="accordion_search">
@@ -26,7 +31,7 @@
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
                             <div class="col-md-2 text-dark fs-5 text-break">{{ $data->departure_date }} <br> {{ date_format(date_create($data->departure_time), 'h:i A') }}</div>
                             <div class="col-md-2 text-dark fs-5 text-break">Rs. {{ $data->price }}</div>
-                            <div class="col-md-2 text-dark fs-5 text-break">36</div>
+                            <div class="col-md-2 text-dark fs-5 text-break">{{ $avaliable_seat }}</div>
                         </div>
                     </button>
                 </h2>
