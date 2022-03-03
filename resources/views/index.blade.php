@@ -165,10 +165,12 @@
             	}
             });
 
+            $('#container-width').hide();
             // getVehicleSeatData();
         });
 
         function getVehicleSeatData(){
+            $('#container-width').show();
             let data = {
                 vehicle_id: $('#vehicle_id').val(),
                 from_id : $('#from_id').val(),

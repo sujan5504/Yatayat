@@ -26,7 +26,7 @@
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
                             <div class="col-md-2 text-dark fs-5 text-break">{{ $data->departure_date }} <br> {{ date_format(date_create($data->departure_time), 'h:i A') }}</div>
                             <div class="col-md-2 text-dark fs-5 text-break">Rs. {{ $data->price }}</div>
-                            <div class="col-md-2 text-dark fs-5 text-break">avaliable seats</div>
+                            <div class="col-md-2 text-dark fs-5 text-break">36</div>
                         </div>
                     </button>
                 </h2>
