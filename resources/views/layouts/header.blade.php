@@ -52,14 +52,25 @@
                 <i class="la la-times la-2x" id="close" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"></i>
             </div>
             <div class="modal-body">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Ticket Number:</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Eg:124xyba4677">
-            </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button " class="btn btn-primary btn-block">Search</button>
+              <div class="mb-3">
+                  <label for="search_ticket" class="form-label">Ticket Number:</label>
+                  <input type="text" class="form-control" id="search_ticket" placeholder="Eg:ASDF85BC">
+                </div>
+                <a type="submit" href="{{ url('/') }}" id="search_ticket_btn" class="btn btn-primary btn-block">Search</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#search_ticket_btn').hide();
+    $('#search_ticket').on('keyup paste',function (e) { 
+      if($(this).val() == ''){
+        $('#search_ticket_btn').hide();
+      }else{
+        $('#search_ticket_btn').show();
+      }
+    });
+  });
+</script>
