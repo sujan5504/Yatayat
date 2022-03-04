@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                     @if(backpack_user())
-                                        <button type="submit" class="btn btn-md btn-primary mt-2">Continue Booking</button>
+                                        <button type="submit" class="btn btn-md btn-primary mt-2" id="continue_booking_btn_{{$data->id}}">Continue Booking</button>
                                     @else
                                         <span class="text-danger">Login first to proceed with the booking !!</span>
                                     @endif
@@ -274,7 +274,10 @@
     });
 
     function clearSeat(id){
+        $('#continue_booking_btn_'+id).attr('disabled',true);
         selected_seat = '';
+        seat_count = 0;
+        seat_price = 0;
         $('#driver_side_'+id).empty();
         $('#last_row_'+id).empty();
         $('#left_'+id).empty();
@@ -358,6 +361,13 @@
             seat_price = seat_count * price;
             $('#total_price_'+id).val(seat_price);
             $('#total_seat').val(seat_count);
+        }
+
+        console.log(seat_count);
+        if(seat_count == '0'){
+            $('#continue_booking_btn_'+id).attr('disabled',true);
+        }else{
+            $('#continue_booking_btn_'+id).attr('disabled',false);
         }
     }
 </script>
