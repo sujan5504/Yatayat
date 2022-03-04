@@ -37,6 +37,7 @@ class ClientRequest extends FormRequest
             'contact' => 'required|max:14',
             'contact' => 'required|max:225',
             'is_active' => 'required',
+            'address' => 'required|max:225',
         ];
     }
 

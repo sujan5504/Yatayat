@@ -97,6 +97,9 @@ class EmployeeCrudController extends BaseCrudController
                 'entity'=>'employee_type',
                 'model'=>EmployeeType::class,
                 'attribute'=>'name',
+                'options'   => (function ($query) {
+                    return $query->where('client_id',1)->orWhere('client_id', backpack_user()->client_id)->get();
+                }),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],

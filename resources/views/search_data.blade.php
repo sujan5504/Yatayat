@@ -22,10 +22,16 @@
         <div class="accordion" id="accordion_search">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading_{{$data->id}}">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
+                    @if($data->vehicle_id == 2)
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
                             aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="clearSeat('<?= $id ?>');
                             loadSeat('<?= $id ?>','<?= $driver_side ?>', '<?= $last_row ?>','<?= $right_row ?>',
                                 '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->price ?>','<?= $data->seat ?>');">
+                    @elseif($data->vehicle_id == 4)
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
+                            aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="bookedSeat('<?= $id ?>','<?= $data->seat ?>')">
+                    @endif
+                    
                         <div class="row w-100">
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->client_name }}</div>
                             <div class="col-md-3 text-dark fs-5 text-break">{{ $data->vehicle_type }}</div>
@@ -78,42 +84,50 @@
                                 <!-- booking policy -->
                                 <div class="collapse collapse_2 mt-2" id="booking_policy_{{$data->id}}">
                                     <h6>Booking Policy</h6>
-                                    @if ($booking_policies[0]->policy == '')
-                                            No records found.
-                                    @else
-                                        <table class="table table-bordered text-break">
-                                            <thead>
-                                                <tr>
-                                                    <th>Policy</th>
-                                                    <th>Deduction</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($booking_policies as $booking_policy)
+                                    @if($booking_policies != null)
+                                        @if ($booking_policies[0]->policy == '')
+                                                No records found.
+                                        @else
+                                            <table class="table table-bordered text-break">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{ $booking_policy->policy }}</td>
-                                                        <td>{{ $booking_policy->deduction }}</td>
+                                                        <th>Policy</th>
+                                                        <th>Deduction</th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($booking_policies as $booking_policy)
+                                                        <tr>
+                                                            <td>{{ $booking_policy->policy }}</td>
+                                                            <td>{{ $booking_policy->deduction }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @endif
+                                    @else
+                                        No records found.
                                     @endif
                                 </div>
 
                                 <!-- amenities -->
                                 <div class="collapse collapse_2 text-break" id="amenities_{{$data->id}}">
                                     <h6>Amenities</h6>
-                                    @if ($amenities[0]->name == '')
-                                        No records found.
+                                    @if($amenities != null)
+                                        @if ($amenities[0]->name == '')
+                                            No records found.
+                                        @else
+                                            @foreach($amenities as $amenitie)
+                                                <tr>{{ $amenitie->name}}</tr>
+                                            @endforeach
+                                        @endif
                                     @else
-                                        @foreach($amenities as $amenitie)
-                                            <tr>{{ $amenitie->name}}</tr>
-                                        @endforeach
+                                        No records found.
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4 card-seats">
-                                @if($data->vehicle_id == 2)
+                            @if($data->vehicle_id == 2)
+                                <div class="col-md-4 card-seats">
                                     <div class="card border-success mt-1 p-1" id="seat-card">
                                         <div class="w-100 d-flex">
                                             <div class="w-50" id="driver_side_{{$data->id}}"></div>
@@ -122,23 +136,75 @@
                                             </div>
                                         </div>
                                         <div class="m-3"></div>
-                                        <div class="w-100 d-flex">
-                                            <div class="w-40" style="align-self: end;">
+                                        <div class="d-flex">
+                                            <div style="align-self: end;">
                                                 <div id="left_{{$data->id}}"></div>
                                             </div>
-                                            <div class="w-20">
+                                            <div>
                                                 <div class="text-white">asdf</div>
                                             </div>
-                                            <div class="w-40" style="align-self: end;">
+                                            <div style="align-self: end;">
                                                 <div id="right_{{$data->id}}"></div>
                                             </div>
                                         </div>
-                                        <div class="w-100">
+                                        <div>
                                             <div id="last_row_{{$data->id}}"></div>
                                         </div>
                                     </div>
-                                @endif
-                            </div>
+                                </div>
+                            @elseif($data->vehicle_id == 4)
+                                <div class="col-md-4">
+                                    <div class="card border-success mt-1 p-1" style="width: 177px;">
+                                        <div class="w-100 d-flex">
+                                            <div class="w-50" id="hiace_driver_side_{{$data->id}}">
+                                                <div class="col">
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_A01" data-value="A01" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_A01" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">A01</span></div>
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_A02" data-value="A02" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_A02" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">A02</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="w-50">
+                                                <img src="{{ asset('images/driver.png') }}" alt="Driver" class="driver-image" height="50px"> 
+                                            </div>
+                                        </div>
+                                        <div class="m-3"></div>
+                                        <div class="col">
+                                            <div style="padding-left:42px" class="d-inline seat-pointer" id="seat_{{$data->id}}_B01" data-value="B01" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B01" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B01</span></div>
+                                            <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B02" data-value="B02" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B02" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B02</span></div>
+                                            <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B03" data-value="B03" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B03" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B03</span></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B04" data-value="B04" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B04" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B04</span></div>
+                                                        <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B07" data-value="B07" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B07" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B07</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col" style="margin-left: 21px;">
+                                                        <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B05" data-value="B05" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B05" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B05</span></div>
+                                                        <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B06" data-value="B06" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B06" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B06</span></div>
+                                                    </div>
+                                                    <div class="col" style="margin-left: 21px;">
+                                                        <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B08" data-value="B08" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B08" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B08</span></div>
+                                                        <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B09" data-value="B09" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B09" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B09</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-100">
+                                            <div id="hiace_last_row_{{$data->id}}">
+                                                <div class="col">
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B10" data-value="B10" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B10" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B10</span></div>
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B11" data-value="B11" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B11" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B11</span></div>
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B12" data-value="B12" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B12" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B12</span></div>
+                                                    <div class="d-inline seat-pointer" id="seat_{{$data->id}}_B13" data-value="B13" onclick="changeImage(this,'<?= $data->id ?>','<?= $data->price ?>')"><img id="img_seat_{{$data->id}}_B13" src="{{ asset('images/avaliable.png') }}"/><span class="seat-no">B13</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -255,6 +321,13 @@
             $("#img_seat_"+id+"_"+value).attr("src", "{{asset('images/booked.png')}}");
         });
         
+    }
+
+    function bookedSeat(id,seat){
+        seats = seat.split(' ');
+        $.each( seats, function( index, value ){
+            $("#img_seat_"+id+"_"+value).attr("src", "{{asset('images/booked.png')}}");
+        });
     }
 
     function changeImage(item, id, price){

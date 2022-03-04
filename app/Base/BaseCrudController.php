@@ -154,4 +154,8 @@ class BaseCrudController extends CrudController
         $this->crud->addClause('where', 'client_id', '1');
         $this->crud->addClause('orWhere', 'client_id', backpack_user()->client_id);
     }
+
+    protected function showDataOfOnlyClient(){
+        $this->crud->addClause('orWhere', 'client_id', backpack_user()->client_id);
+    }
 }

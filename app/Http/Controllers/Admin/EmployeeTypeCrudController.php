@@ -26,6 +26,7 @@ class EmployeeTypeCrudController extends BaseCrudController
         ];
         $this->crud->addColumns($cols);
         $this->hideClientIdColumn();
+        $this->filterDataClientWise();
     }
 
     protected function setupCreateOperation()

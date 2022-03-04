@@ -26,11 +26,12 @@ class VehicleCrudController extends BaseCrudController
         ];
         $this->crud->addColumns($cols);
         $this->hideClientIdColumn();
+        $this->filterDataClientWise();
     }
 
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VehicleTypeRequest::class);
+        CRUD::setValidation(VehicleRequest::class);
 
         $arr = [
             $this->addClientIdField(),

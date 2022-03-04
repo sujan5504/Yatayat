@@ -92,6 +92,7 @@ class VehiclesAssignCrudController extends BaseCrudController
         ];
         $this->crud->addColumns($cols);
         $this->hideClientIdColumn();
+        $this->showDataOfOnlyClient();
     }
 
     protected function setupCreateOperation()
@@ -107,6 +108,9 @@ class VehiclesAssignCrudController extends BaseCrudController
                 'entity' => 'vehicle',
                 'model' => Vehicle::class,
                 'attribute' => 'name',
+                'options'   => (function ($query) {
+                    return $query->where('client_id',1)->orWhere('client_id', backpack_user()->client_id)->get();
+                }),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],
@@ -202,7 +206,11 @@ class VehiclesAssignCrudController extends BaseCrudController
                 'model' => Employee::class,
                 'attribute' => 'full_name',
                 'options'   => (function ($query) {
-                    return $query->where('employee_type_id', 1)->get();
+                    return $query->where('client_id',1)->orWhere('client_id', backpack_user()->client_id)->get();
+                }),
+                'options'   => (function ($query) {
+                    return $query->where('client_id',1)->where('employee_type_id', 1)->orWhere('client_id', backpack_user()->client_id)->get();
+
                 }),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
@@ -219,7 +227,7 @@ class VehiclesAssignCrudController extends BaseCrudController
                     'class' => 'form-group col-md-3',
                 ],
                 'options'   => (function ($query) {
-                    return $query->where('employee_type_id', 2)->get();
+                    return $query->where('client_id',1)->where('employee_type_id', 2)->orWhere('client_id', backpack_user()->client_id)->get();
                 }),
             ],
             [

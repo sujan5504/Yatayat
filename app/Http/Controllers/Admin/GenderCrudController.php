@@ -14,10 +14,12 @@ class GenderCrudController extends BaseCrudController
         CRUD::setModel(Gender::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/gender');
         CRUD::setEntityNameStrings(trans('gender.title_text'), trans('gender.title_text'));
+        
     }
 
     protected function setupListOperation()
     {
+        $this->crud->removeButtons(['create','update','delete','show']);
         $cols = [
             $this->addRowNumber(),
             $this->addCodeColumn(),

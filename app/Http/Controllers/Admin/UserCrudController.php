@@ -38,7 +38,7 @@ class UserCrudController extends BaseCrudController
             ],
         ]);
         $this->hideClientIdColumn();
-
+        $this->showDataOfOnlyClient();
         // Role Filter
         // $this->crud->addFilter(
         //     [

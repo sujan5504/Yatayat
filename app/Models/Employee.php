@@ -20,7 +20,7 @@ class Employee extends Model
     // public $timestamps = false;
     protected $guarded = ['id'];
     protected $fillable = ['full_name','employee_type_id','license_number','issued_date_bs','issued_date_ad',
-                            'license_photo','employee_photo','contact','gender_id','email','is_active'];
+                            'license_photo','employee_photo','contact','gender_id','email','is_active','client_id'];
     // protected $hidden = [];
     // protected $dates = [];
 

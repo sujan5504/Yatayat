@@ -25,7 +25,7 @@ class VehicleTypeVehicleDetail extends Controller
         } else {
             $results = $options->paginate(10);
         }
-
+        $options->where('client_id', backpack_user()->client_id);
         return $options->paginate(10);
     }
 }

@@ -58,7 +58,8 @@ class VehicleDetailsCrudController extends BaseCrudController
             ],
         ];
         $this->crud->addColumns($cols);
-        $this->hideClientIdColumn();
+        $this->hideClientIdColumn(); 
+        $this->showDataOfOnlyClient(); 
     }
 
     protected function setupCreateOperation()
@@ -74,6 +75,9 @@ class VehicleDetailsCrudController extends BaseCrudController
                 'entity' => 'vehicle',
                 'model' => Vehicle::class,
                 'attribute' => 'name',
+                'options'   => (function ($query) {
+                    return $query->where('client_id',1)->orWhere('client_id', backpack_user()->client_id)->get();
+                }),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-3',
                 ],
