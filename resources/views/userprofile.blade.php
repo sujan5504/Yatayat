@@ -191,19 +191,37 @@
                         </div>
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body">
-                                <table class="table">
+                                <table class="table table-bordered" id="bookings-details-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Passenger</th>
+                                            <th scope="col">Travels</th>
+                                            <th scope="col">Ticket No.</th>
                                             <th scope="col">Vechile</th>
-                                            <th scope="col">From</th>
-                                            <th scope="col">To</th>
+                                            <th scope="col">From <br> To</th>
+                                            <th scope="col">Boarding Point <br> Dropping Point</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col">Seat</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col" style="width: 133.906px;">Seat</th>
+                                            <th scope="col">Price</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                            @foreach($booking_details as $detail)
+                                                @if($detail->status == 0)
+                                                    <tr>
+                                                        <td>{{ $detail->client_name }}</td>
+                                                        <td>{{ $detail->ticket_number }}</td>
+                                                        <td>{{ $detail->vehicle_name }}</td>
+                                                        <td>{{ $detail->from_name }} <br> {{ $detail->to_name }}</td>
+                                                        <td>{{ $detail->boarding_point }} <br> {{ $detail->dropping_point }}</td>
+                                                        <td>{{ $detail->date }}</td>
+                                                        <td>{{ $detail->seat }}</td>
+                                                        <td>{{ $detail->price }}</td>
+                                                        <td><button class="btn btn-sm btn-danger">Cancel</button></td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                    </tbody>
                                     {{-- <tbody>
                                         @foreach($bookdata as $bookval)
 
@@ -252,34 +270,34 @@
                         </div>
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body">
-                                <table class="table">
+                                <table class="table table-bordered" id="booking-cancel-details">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Passenger</th>
+                                            <th scope="col">Travels</th>
+                                            <th scope="col">Ticket No.</th>
                                             <th scope="col">Vechile</th>
-                                            <th scope="col">From</th>
-                                            <th scope="col">To</th>
+                                            <th scope="col">From <br> To</th>
+                                            <th scope="col">Boarding Point <br> Dropping Point</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Seat</th>
-                                            <th scope="col">Status</th>
-
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
-                                        @foreach($bookingcancle as $canclled)
-                                        <tr>
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-                                            <td> {{$canclled->seat}}</td>
-                                            <td>
-                                                <p class=" font-weight-bold text-info">Cancelled</p>
-                                            </td>
-                                        </tr>
+                                    <tbody>
+                                        @foreach($booking_details as $detail)
+                                            @if($detail->status == 1)
+                                                <tr>
+                                                    <td>{{ $detail->client_name }}</td>
+                                                    <td>{{ $detail->ticket_number }}</td>
+                                                    <td>{{ $detail->vehicle_name }}</td>
+                                                    <td>{{ $detail->from_name }} <br> {{ $detail->to_name }}</td>
+                                                    <td>{{ $detail->boarding_point }} <br> {{ $detail->dropping_point }}</td>
+                                                    <td>{{ $detail->date }}</td>
+                                                    <td>{{ $detail->seat }}</td>
+                                                    <td>{{ $detail->price }}</td>
+                                                </tr>
+                                            @endif
                                         @endforeach
-                                    </tody> --}}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -317,6 +335,20 @@
                     $('#updateinfo').hide();
                     $("#CheckPasswordMatch").html("Password match !").css("color", "green");
                 }
+            });
+
+            $('#bookings-details-table, #booking-cancel-details').DataTable({
+				dom: '<"top"fi>rt<"bottom"pl>',
+				searching: true,
+				paging: true,
+				ordering:false,
+				select: false,
+				bInfo : true,
+				lengthChange: true,
+				lengthMenu: [
+					[ 5, 10, 25, 50, 100, -1 ],
+					[ '5', '10', '25', '50', '100', 'All' ]
+				],
             });
         });
     </script>

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('packages/line-awesome/css/line-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('packages/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nepali.datepicker.v2.2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('packages/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('packages/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -22,6 +23,8 @@
     <script src="{{ asset('js/dependentDropdown.js') }}"></script>
     <script src="{{ asset('packages/noty/noty.min.js') }}"></script>
     <script src="{{ asset('packages/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('packages/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('packages/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
 
     @yield('styles')
     <style>

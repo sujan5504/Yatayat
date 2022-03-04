@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Seat;
 use App\Models\User;
 use App\Models\Gender;
 use Illuminate\Http\Request;
@@ -64,8 +65,26 @@ class UserProfileController extends Controller
         $userdata = User::whereId($id)->get()->first();
         $genders = Gender::all();
         $user_gender = Gender::where('id', $userdata->gender_id)->pluck('name')->first(); 
+        $today_date = Carbon::now();
+        dd($today_date);
+        $booking_details = DB::select('SELECT b.id,c.name client_name, b.status, b.ticket_number, b.boarding_point, b.dropping_point, 
+                            vt.name as vehicle_name, d.name as from_name, de.name as to_name, b.date, b.cost as price, b.created_at
+                            FROM bookings AS b
+                            LEFT JOIN clients AS c ON c.id = b.client_id
+                            LEFT JOIN vehicles_assign AS va ON va.id = b.vehicles_assign_id
+                            LEFT JOIN vehicle_types AS vt ON vt.id = va.vehicle_detail_id 
+                            LEFT JOIN destinations AS d ON d.id = va.from_id
+                            LEFT JOIN destinations AS de ON de.id = va.to_id
+                            WHERE b.user_id ='."'".$id."'"
+                        );
+                        
+        foreach($booking_details as $data){
+            $seat = Seat::where('booking_id', $data->id)->pluck('seat');
+            $seat = $seat->implode(" ");
+            $data->seat = $seat;
+        }
 
-        return view('userprofile', compact('userdata','genders','user_gender'));
+        return view('userprofile', compact('userdata','genders','user_gender', 'booking_details'));
     }
 
     /**
