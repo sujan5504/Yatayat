@@ -118,7 +118,48 @@ class BookingController extends Controller
         foreach($seat_numbers as $seat_number){
             $seat .= ' ' . $seat_number->seat;
         }
+        $status = 0;
 
-        return view('booking_ticket', compact('data','seat'));
+        return view('booking_ticket', compact('data','seat','status'));
+    }
+
+    public function bookingCancel(Request $request){
+        $data = [
+            'status' => true,
+        ];
+
+        try{  
+            Booking::where('id', '=', $request->id)->update($data);
+            DB::commit();
+            return 1;
+        }catch(\Throwable $th){
+            DB::rollback();
+            return 0;
+        }
+    }
+
+    public function searchTicketDetails(Request $request){
+        $data = DB::select('SELECT b.id as booking_id,b.name,b.contact,b.email,b.boarding_point,b.dropping_point,b.cost,b.date,b.time,
+                d.name AS from_name,de.name AS to_name,c.NAME AS client_name,c.address AS client_address,c.contact AS client_contact, 
+                vs.vehicle_number,va.departure_time,va.departure_date,va.price,b.ticket_number
+                FROM bookings AS b
+                LEFT JOIN vehicles_assign AS va ON va.id = b.vehicles_assign_id
+                LEFT JOIN destinations AS d ON d.id = va.from_id
+                LEFT JOIN destinations AS de ON de.id = va.to_id
+                LEFT JOIN clients AS c ON c.id = b.client_id
+                LEFT JOIN vehicle_details AS vs ON vs.id = va.vehicle_detail_id 
+                WHERE b.ticket_number ='."'".$request->ticket_number."'");
+        if($data != []){
+            $seat_numbers = Seat::select('seat')->where('booking_id',$data[0]->booking_id)->get();
+            $seat = '';
+            foreach($seat_numbers as $seat_number){
+                $seat .= ' ' . $seat_number->seat;
+            }
+        }else{
+            $seat = '';
+        }
+        $ticket_number = $request->ticket_number;
+        $status = 1;
+        return view('booking_ticket', compact('data','seat','status','ticket_number'));
     }
 }

@@ -52,12 +52,15 @@
                 <i class="la la-times la-2x" id="close" data-bs-dismiss="modal" aria-label="Close" style="cursor:pointer;"></i>
             </div>
             <div class="modal-body">
-              <div class="mb-3">
-                  <label for="search_ticket" class="form-label">Ticket Number:</label>
-                  <input type="text" class="form-control" id="search_ticket" placeholder="Eg:ASDF85BC">
+              <form action="{{ route('searchticket') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="search_ticket" class="form-label">Ticket Number:</label>
+                    <input type="text" name="ticket_number" class="form-control" id="search_ticket" placeholder="Eg:ASDF85BC">
+                  </div>
                 </div>
-                <a type="submit" href="{{ url('/') }}" id="search_ticket_btn" class="btn btn-primary btn-block">Search</a>
-            </div>
+                <button type="submit" id="search_ticket_btn" class="btn btn-sm btn-primary">Search</button>
+              </form>
         </div>
     </div>
 </div>

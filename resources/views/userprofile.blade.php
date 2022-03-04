@@ -190,7 +190,7 @@
                             <h4 class="text-center">Booked</h4>
                         </div>
                         <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
+                            <div class="card-body" id="booking-details">
                                 <table class="table table-bordered" id="bookings-details-table">
                                     <thead>
                                         <tr>
@@ -217,46 +217,15 @@
                                                         <td>{{ $detail->date }}</td>
                                                         <td>{{ $detail->seat }}</td>
                                                         <td>{{ $detail->price }}</td>
-                                                        <td><button class="btn btn-sm btn-danger">Cancel</button></td>
+                                                        @if($detail->booked_difference == 1)
+                                                            <td></td>
+                                                        @else
+                                                            <td><button class="btn btn-sm btn-danger" onclick="cancelTicket('<?= $detail->id?>')"><i class="la la-times"></i> Cancel</button></td>
+                                                        @endif
                                                     </tr>
                                                 @endif
                                             @endforeach
                                     </tbody>
-                                    {{-- <tbody>
-                                        @foreach($bookdata as $bookval)
-
-                                        <tr>
-                                            
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-                                            <td><?php  ?></td>
-
-
-                                            <td></td>
-                                            <td></td>
-                                            <td>{{$bookval->seat}}</td>
-                                            <td>
-                                                <p class=" font-weight-bold text-success">BOOKED</p>
-                                            </td>
-                                            <td><?php
-                                                date_default_timezone_set('Asia/Kathmandu');
-                                                $ab = strtotime($bookval->created_at);
-
-                                                if ($date_time > $ab) {
-                                                ?>
-                                                    <button class=" btn btn-danger btn-sm" disabled data-toggle="tool-tip" id="cancle" title="Cancle">Cancle</button></a>
-
-
-                                                <?php } else {
-                                                ?>
-                                                    <a onclick="return confirm('Are you sure to cancle your booking?')" href="cancle/{{$bookval->seat}}">
-                                                        <button class=" btn btn-danger btn-sm" data-toggle="tool-tip" id="cancle" title="Cancle" value="{{$bookval->seat}}">Cancle</button></a>
-                                                <?php }
-                                                ?>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody> --}} 
                                 </table>
                             </div>
                         </div>
@@ -269,7 +238,7 @@
                             <h4 class="text-center">Booking Cancelled</h4>
                         </div>
                         <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
+                            <div class="card-body" id="booking-cancel">
                                 <table class="table table-bordered" id="booking-cancel-details">
                                     <thead>
                                         <tr>
@@ -280,6 +249,7 @@
                                             <th scope="col">Boarding Point <br> Dropping Point</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Seat</th>
+                                            <th scope="col">Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -351,5 +321,46 @@
 				],
             });
         });
+
+        function cancelTicket(id){
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure you want to cancel your ticket?",
+                icon: "warning",
+                buttons: true,
+                closeOnClickOutside : true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    let data = {
+                        _token : $("meta[name='csrf-token']").attr("content"),
+                        id : id,
+                    };
+                    
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route("bookingcancel") }}',
+                        data: data,
+                        success:function(response) {
+                            if(response == 1){ 
+                                swal({
+                                    title: 'Success',
+                                    text: 'Your ticket has been cancelled.',
+                                    icon: "success",
+                                    button: false,
+                                    closeOnClickOutside : true,
+                                });
+                                setTimeout(location.reload.bind(location), 2000);
+                            }else{
+                                swal({
+                                    title: 'Error',
+                                    text: 'Ther was some problem. Please try again!!',
+                                    icon: "error",
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        }
     </script>
 @endsection

@@ -66,8 +66,7 @@ class UserProfileController extends Controller
         $userdata = User::whereId($id)->get()->first();
         $genders = Gender::all();
         $user_gender = Gender::where('id', $userdata->gender_id)->pluck('name')->first(); 
-        $today_date = Carbon::now();
-        dd($today_date);
+
         $booking_details = DB::select('SELECT b.id,c.name client_name, b.status, b.ticket_number, b.boarding_point, b.dropping_point, 
                             vt.name as vehicle_name, d.name as from_name, de.name as to_name, b.date, b.cost as price, b.created_at
                             FROM bookings AS b
@@ -76,10 +75,20 @@ class UserProfileController extends Controller
                             LEFT JOIN vehicle_types AS vt ON vt.id = va.vehicle_detail_id 
                             LEFT JOIN destinations AS d ON d.id = va.from_id
                             LEFT JOIN destinations AS de ON de.id = va.to_id
-                            WHERE b.user_id ='."'".$id."'"
+                            WHERE b.user_id ='."'".$id."'".'ORDER BY b.date DESC'
                         );
                         
         foreach($booking_details as $data){
+            $to = Carbon::createFromFormat('Y-m-d H:s:i', $data->created_at);
+            $from = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+            $difference = $to->diffInHours($from);
+
+            if($difference > 3){
+                $data->booked_difference = 1;
+            }else{
+                $data->booked_difference = 0;
+            }
+
             $seat = Seat::where('booking_id', $data->id)->pluck('seat');
             $seat = $seat->implode(" ");
             $data->seat = $seat;
