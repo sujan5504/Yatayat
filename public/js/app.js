@@ -15,7 +15,8 @@ $(document).ready(function () {
             $('.driver_license_info').show();
         }
     });
-
+    
+    $('.if_bus').hide();
     $('#vehicle_type_change').change(function(){
         vehicle_value = $(this).val();
         if(vehicle_value == 2){
