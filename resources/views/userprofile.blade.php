@@ -79,10 +79,10 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="email">Email address</label>
-                                                    <input class="form-control input-lg" id="inputlg" type="text" name="email" value="{{$userdata->email}}" required readonly>
+                                                    <input class="form-control input-lg" id="inputlg" type="text" name="email" value="{{$userdata->email}}" required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            {{--<div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
                                                     <input class="form-control input-lg" id="password" type="password" name="password" value="{{ $userdata->password }}" class="readonly">
@@ -95,8 +95,8 @@
                                                     <div id="CheckPasswordMatch"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div id="updateinfo" class="text-danger text-center">Confirm Password to save changes!!</div>
+                                        </div>--}}
+                                        <!-- <div id="updateinfo" class="text-danger text-center">Confirm Password to save changes!!</div> -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <button class="btn btn-primary" type="submit" id="updateuser"> Save Changes</button>
@@ -197,8 +197,8 @@
                                             <th scope="col">Travels</th>
                                             <th scope="col">Ticket No.</th>
                                             <th scope="col">Vechile</th>
-                                            <th scope="col">From <br> To</th>
-                                            <th scope="col">Boarding Point <br> Dropping Point</th>
+                                            <th scope="col"><span class="text-success">From</span> <br> <span class="text-primary">To<span></th>
+                                            <th scope="col"><span class="text-success">Boarding Point</span> <br><span class="text-primary"> Dropping Point<span></th>
                                             <th scope="col">Date</th>
                                             <th scope="col" style="width: 133.906px;">Seat</th>
                                             <th scope="col">Price</th>
@@ -212,8 +212,8 @@
                                                         <td>{{ $detail->client_name }}</td>
                                                         <td>{{ $detail->ticket_number }}</td>
                                                         <td>{{ $detail->vehicle_name }}</td>
-                                                        <td>{{ $detail->from_name }} <br> {{ $detail->to_name }}</td>
-                                                        <td>{{ $detail->boarding_point }} <br> {{ $detail->dropping_point }}</td>
+                                                        <td><span class="text-success">{{ $detail->from_name }}</span> <br> <span class="text-primary">{{ $detail->to_name }}<span></td>
+                                                        <td><span class="text-success">{{ $detail->boarding_point }}</span> <br><span class="text-primary"> {{ $detail->dropping_point }}</span></td>
                                                         <td>{{ $detail->date }}</td>
                                                         <td>{{ $detail->seat }}</td>
                                                         <td>{{ $detail->price }}</td>
@@ -245,8 +245,8 @@
                                             <th scope="col">Travels</th>
                                             <th scope="col">Ticket No.</th>
                                             <th scope="col">Vechile</th>
-                                            <th scope="col">From <br> To</th>
-                                            <th scope="col">Boarding Point <br> Dropping Point</th>
+                                            <th scope="col"><span class="text-success">From</span> <br> <span class="text-primary">To<span></th>
+                                            <th scope="col"><span class="text-success">Boarding Point</span> <br><span class="text-primary"> Dropping Point<span></th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Seat</th>
                                             <th scope="col">Price</th>
@@ -259,8 +259,8 @@
                                                     <td>{{ $detail->client_name }}</td>
                                                     <td>{{ $detail->ticket_number }}</td>
                                                     <td>{{ $detail->vehicle_name }}</td>
-                                                    <td>{{ $detail->from_name }} <br> {{ $detail->to_name }}</td>
-                                                    <td>{{ $detail->boarding_point }} <br> {{ $detail->dropping_point }}</td>
+                                                    <td><span class="text-success">{{ $detail->from_name }}</span> <br> <span class="text-primary">{{ $detail->to_name }}<span></td>
+                                                    <td><span class="text-success">{{ $detail->boarding_point }}</span> <br><span class="text-primary"> {{ $detail->dropping_point }}</span></td>
                                                     <td>{{ $detail->date }}</td>
                                                     <td>{{ $detail->seat }}</td>
                                                     <td>{{ $detail->price }}</td>
@@ -293,19 +293,19 @@
             $('#gender').val(val);
             $('#gender').trigger('change');
 
-            $('#updateuser').attr('disabled',true);
-            $("#confirm_password").on('keyup', function() {
-                var password = $("#password").val();
-                var confirmPassword = $("#confirm_password").val();
-                if (password != confirmPassword){
-                    $("#CheckPasswordMatch").html("Password does not match !").css("color", "red");
-                }
-                else{
-                    $('#updateuser').attr('disabled',false);
-                    $('#updateinfo').hide();
-                    $("#CheckPasswordMatch").html("Password match !").css("color", "green");
-                }
-            });
+            // $('#updateuser').attr('disabled',true);
+            // $("#confirm_password").on('keyup', function() {
+            //     var password = $("#password").val();
+            //     var confirmPassword = $("#confirm_password").val();
+            //     if (password != confirmPassword){
+            //         $("#CheckPasswordMatch").html("Password does not match !").css("color", "red");
+            //     }
+            //     else{
+            //         $('#updateuser').attr('disabled',false);
+            //         $('#updateinfo').hide();
+            //         $("#CheckPasswordMatch").html("Password match !").css("color", "green");
+            //     }
+            // });
 
             $('#bookings-details-table, #booking-cancel-details').DataTable({
 				dom: '<"top"fi>rt<"bottom"pl>',
