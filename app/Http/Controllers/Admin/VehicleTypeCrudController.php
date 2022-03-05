@@ -153,7 +153,6 @@ class VehicleTypeCrudController extends BaseCrudController
                 'vehicle_id' => $request->vehicle_id,
                 'name' => $request->name,
                 'is_active' => $request->is_active,
-                'remarks' => $request->remarks,
                 'driver_side' => $request->driver_side,
                 'last_row' => $request->last_row,
                 'right_row' => $request->right_row,
@@ -175,5 +174,43 @@ class VehicleTypeCrudController extends BaseCrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($item->getKey());
+    }
+
+    public function update()
+    {
+        $this->crud->hasAccessOrFail('update');
+
+        // execute the FormRequest authorization and validation, if one is required
+        $request = $this->crud->validateRequest();
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        DB::beginTransaction();
+        try{
+            $item = VehicleType::where('id','=',$id)->update([
+                'client_id' => $request->client_id,
+                'vehicle_id' => $request->vehicle_id,
+                'name' => $request->name,
+                'is_active' => $request->is_active,
+                'driver_side' => $request->driver_side,
+                'last_row' => $request->last_row,
+                'right_row' => $request->right_row,
+                'right_column' => $request->right_column,
+                'left_row' => $request->left_row,
+                'left_column' => $request->left_column,
+                'total_no_of_seat' => $request->total_no_of_seat,
+            ]);
+            DB::commit();
+        }catch(\Throwable $th){
+            dd($th);
+            DB::rollback();
+        }
+
+        // show a success message
+        \Alert::success(trans('backpack::crud.update_success'))->flash();
+
+        // save the redirect choice for next time
+        $this->crud->setSaveAction();
+
+        return $this->crud->performSaveAction($id);
     }
 }
