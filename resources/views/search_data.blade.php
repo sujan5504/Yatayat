@@ -15,7 +15,11 @@
 
             $total_seat = $data->total_no_of_seat;
             $seat = explode(' ', $data->seat);
-            $count = count($seat);
+            if($seat[0] == ''){
+                $count = 0;
+            }else{
+                $count = count($seat);
+            }
             $avaliable_seat = $total_seat - $count;
         @endphp
         
@@ -29,7 +33,7 @@
                                 '<?= $right_column ?>','<?= $left_row ?>', '<?= $left_column ?>','<?= $data->price ?>','<?= $data->seat ?>');">
                     @elseif($data->vehicle_id == 4)
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$data->id}}" 
-                            aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="bookedSeat('<?= $id ?>','<?= $data->seat ?>')">
+                            aria-expanded="true" aria-controls="collapse_{{$data->id}}" onclick="clearSeat('<?= $id ?>');bookedSeat('<?= $id ?>','<?= $data->seat ?>')">
                     @endif
                     
                         <div class="row w-100">
@@ -363,7 +367,6 @@
             $('#total_seat').val(seat_count);
         }
 
-        console.log(seat_count);
         if(seat_count == '0'){
             $('#continue_booking_btn_'+id).attr('disabled',true);
         }else{
